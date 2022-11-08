@@ -1,0 +1,38 @@
+goininf=$1
+gochr=$2
+gostart=$3
+goend=$4
+goinbam=$5
+rm -rf graphsamtoolstempdir
+mkdir graphsamtoolstempdir
+
+echo "${gochr} ${gostart} ${goend} main"
+
+echo "${gochr} ${gostart} ${goend} main"| awk -v OFS="\t" '{print $1,$2,$3,$4}'  > graphsamtoolstempdir/pathwaybed.bed
+cat $goininf | awk -v OFS="\t" -v gochr=${gochr} -v gostart=${gostart} -v goend=${goend} -F "_|,|-" '{if($6==gochr&&$4<goend&&$4>gostart){print $1,$2,$3,$6"-"$4"-"$5}}' >> graphsamtoolstempdir/pathwaybed.bed
+
+#samtools view $goinbam  ${gochr}:${gostart}-${goend}  -b -o ${goinbam}.${gochr}.${gostart}.${goend}.bam
+#Chr10Basmati1genomefa_57035_57127,52838-52841,10
+#Chr10Basmati1genomefa_62844_74162,58596-58598,10
+#cp ${goinbam}.${gochr}.${gostart}.${goend}.bam graphsamtoolstempdir
+
+for i in $(cat graphsamtoolstempdir/pathwaybed.bed | awk '{print $1":"$2"-"$3}')
+do
+cpoi=$i
+echo "$cpoi"
+samtools view $goinbam  $cpoi  -b -o $goinbam.$i.bam
+cp $goinbam.$i.bam  graphsamtoolstempdir
+samtools index graphsamtoolstempdir/$goinbam.$i.bam
+done
+
+bamToBed -i ${goinbam}.${gochr}.${gostart}.${goend}.bam >> graphsamtoolstempdir/reads.bed
+
+
+for i in $(cat graphsamtoolstempdir/pathwaybed.bed | grep -v "main"| awk '{print $1":"$2"-"$3}')
+do
+chrhead=$(echo "$i" | awk -F ":|-" '{print $1"_"$2"_"$3}')
+echo "$chrhead"          
+bamToBed -i $goinbam.$i.bam > graphsamtoolstempdir/tempreads.bed
+awk -v chrhead=${chrhead} '{print chrhead,$2,$3,$4,$5,$6}' graphsamtoolstempdir/tempreads.bed >> graphsamtoolstempdir/reads.bed
+rm $goinbam.$i.bam
+done

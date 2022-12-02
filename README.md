@@ -5,7 +5,11 @@ a programme for visualization of short sequence alignment and path navigation in
 
 **Extraction of related main and branch paths based on a certain reference genome interval*
 ```
- graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam file>
+ graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam file> <out index>
+```
+**Population mode*
+```
+graphsamtools <info.file> <chromosome> <start posistion> <end posistion> population <out index> <population 1>,<population 1 name> <population 2>,<population 2 name>
 ```
 **For drawing and graph navigation**
 ```

@@ -1,6 +1,17 @@
 # VSAG
 a programme for visualization of short sequence alignment and path navigation in graphical pan-genome
 ![out](https://user-images.githubusercontent.com/46209789/200499386-cb1277d2-f323-4829-bdb3-cc9c34a87f35.png)
+***Install***
+**Dependency**
+Pysam, matplotlib, mpld3, Samtools, Bamtools
+php environment (for web), apache (for web)
+**Command tools**
+```
+python setup.py install
+```
+**web-server**
+All pages are packaged in the webserver index. You can directly copy the page to the login index of the server to complete the deployment and make it accessible. If you have any difficulty, Please feel free to contact the author (lpf_bio@foxmail.com)
+
 ***Usage***
 
 **Extraction of related main and branch paths based on a certain reference genome interval*
@@ -9,7 +20,8 @@ a programme for visualization of short sequence alignment and path navigation in
 ```
 **Population mode*
 ```
-graphsamtools <info.file> <chromosome> <start posistion> <end posistion> population <out index> <population 1>,<population 1 name> <population 2>,<population 2 name>
+graphsamtools <info.file> <chromosome> <start posistion> <end posistion> population <out index> <population 1>,<population 1 name> <population 2>,<population 2 name> <out index>
+
 ```
 **For drawing and graph navigation**
 ```

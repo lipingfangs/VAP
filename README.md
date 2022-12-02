@@ -2,14 +2,15 @@
 a programme for visualization of short sequence alignment and path navigation in graphical pan-genome
 ![out](https://user-images.githubusercontent.com/46209789/200499386-cb1277d2-f323-4829-bdb3-cc9c34a87f35.png)
 ***Install***
-**Dependency**
+**Dependency*
+
 Pysam, matplotlib, mpld3, Samtools, Bamtools
 php environment (for web), apache (for web)
-**Command tools**
+**Command tools*
 ```
 python setup.py install
 ```
-**web-server**
+**web-server*
 All pages are packaged in the webserver index. You can directly copy the page to the login index of the server to complete the deployment and make it accessible. If you have any difficulty, Please feel free to contact the author (lpf_bio@foxmail.com)
 
 ***Usage***

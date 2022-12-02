@@ -10,22 +10,27 @@ php environment (for web), apache (for web)
 ```
 python setup.py install
 ```
+
 **web-server*
 All pages are packaged in the webserver index. You can directly copy the page to the login index of the server to complete the deployment and make it accessible. If you have any difficulty, Please feel free to contact the author (lpf_bio@foxmail.com)
 
 ***Usage***
 
 **Extraction of related main and branch paths based on a certain reference genome interval*
+
 ```
  graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam file> <out index>
 ```
 **Population mode*
+
 ```
 graphsamtools <info.file> <chromosome> <start posistion> <end posistion> population <out index> <population 1>,<population 1 name> <population 2>,<population 2 name> <out index>
 
 ```
-**For drawing and graph navigation**
+**For drawing and graph navigation*
+
 ```
+
 optional arguments:
   -h, --help            show this help message and exit
   --inindex ININDEX     the index of your data after process of graphsamtools

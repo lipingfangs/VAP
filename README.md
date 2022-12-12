@@ -20,7 +20,7 @@ All pages are packaged in the webserver index. You can directly copy the page to
 **Extraction of related main and branch paths based on a certain reference genome interval*
 
 ```
- graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam file> <out index>
+ graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam file> <out dir>
 ```
 **Population mode*
 
@@ -28,7 +28,14 @@ All pages are packaged in the webserver index. You can directly copy the page to
 graphsamtools <info.file> <chromosome> <start posistion> <end posistion> population <population 1>,<population 1 name> <population 2>,<population 2 name> <out dir>
 
 ```
-**For drawing and graph navigation*
+**For upload and visualized in Web-sever*
+
+```
+tar zcvf <out dir>.tar.gz <out dir>
+```
+Upload the <out dir>.tar.gz.
+
+**For drawing and graph navigation with command lines*
 
 ```
 

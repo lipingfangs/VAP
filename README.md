@@ -17,6 +17,14 @@ All pages are packaged in the webserver index. You can directly copy the page to
 
 ***Usage***
 
+**Generated the info.file contained graph tracks information*
+
+```
+gfatools gfa2fa -s <graph>.GFA > <graph>.fa
+python script/getinf.py <graph>.fa > <info.file>
+
+```
+
 **Extraction of related main and branch paths based on a certain reference genome interval*
 
 ```

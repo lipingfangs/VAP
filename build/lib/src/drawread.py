@@ -1,4 +1,4 @@
-from src.sortread import *
+from sortread import *
 def readreadbed(readsbedfilename,dictracks,colors,readsdirection):
     
     readsbedfile = open(readsbedfilename,"r")

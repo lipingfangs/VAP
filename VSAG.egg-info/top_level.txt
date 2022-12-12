@@ -1,0 +1,14 @@
+src/coverage
+src/cutpathwayreliablebed
+src/drawread
+src/drawtrack
+src/filiterthenotpairtrack
+src/gaingene
+src/geneannotation
+src/legendblock
+src/mutilplesamplecoverage
+src/phasesequence
+src/populationfreq
+src/readsnptrack
+src/snptrack
+src/sortread

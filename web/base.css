@@ -1,0 +1,330 @@
+body{
+	color: #000;
+}
+
+
+.container{ 
+    width:1010px; 
+} 
+.container pre{ 
+	font-family:monospace;
+} 
+div.jumbotron { 
+    margin-bottom :0px; 
+	padding-top   :0px;
+	padding-bottom:0px;
+} 
+.homehead{
+	background-color:#FFF;
+}
+.carousel-control.left .carousel-control.right{
+	background-color:#FFF;
+
+}
+
+.navbar-inverse .navbar-brand{ 
+    color: #FFF; 
+} 
+div.jumbotron h1{ 
+	font-size: 20px;
+} 
+div.jumbotron p { 
+    margin-bottom: 15px; 
+    font-size: 14px; 
+    font-weight: 200; 
+	text-align:justify;
+} 
+.navbar-inverse { 
+    background-color: #458B00;
+	color: #25B394;
+    border-color: #2F4050;
+	border-radius: 0px;
+}
+
+.navbar{
+	margin-bottom:0px;
+	box-shadow: 0 3px 4px rgba(0,0,0,0.2);
+	z-index: 999;
+}
+.table-hover>tbody>tr:hover {
+	background-color: #FCFCFC;
+}
+
+.footer hr{
+    border-top: 1px solid #676;
+}
+
+.jumbotron.bg1{
+	background-color: #FFFFFF; color:#676a6c;
+	padding-top: 20px;
+}
+
+.jumbotron.bg2{
+	background-color: #458B00; color:#676a6c;
+}
+
+.footer.bg3{
+	background-color:#458B00; color:#7CCD7C;
+	position:absolute;bottom:0px;left:0px;
+	width:100%;
+}
+
+.bigparagraph p:first-letter {
+	font-size: 2em;
+	line-height: 1em;
+	color: #FFF;
+	vertical-align: bottom;
+}
+
+.bigparagraph p {
+	color: #FFF;
+}
+
+.funcblock .col-sm-4,.funcblock .col-sm-3, .funcblock .col-sm-6, .funcblock .col-sm-12{
+	padding:0px;
+}
+
+.funcblock .func{ 
+    padding: 0px; 
+    margin: 0px auto; 
+	width:120px;
+    border-radius: 60px; 
+    border: 1px solid #EEE; 
+    height: 120px; 
+	z-index: 999;
+	text-align: center;
+}
+
+.func.light_lv1{
+	background-color: #0C6DB7;
+}
+
+.func.light_lv2{
+	background-color: #3394CF;
+}
+
+.funcblock{
+	padding-bottom: 20px;
+}
+
+.func span{
+	font-size: 40px;
+	margin: auto;
+	line-height: 120px;
+	text-align: center;
+	color: #FFF;
+}
+
+
+.func p { 
+    font-size: 14px; 
+} 
+
+.func dt{
+	font-weight: normal;
+}
+.circleblock p{
+	text-align: center;
+	padding: 10px;
+}
+
+.h3,h3{
+	color:#006400;
+    font-size: 20px;
+}
+
+.h4,h4{
+	color:#FFDEAD;
+    font-size: 18px;
+}
+
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h3 a:hover {
+	text-decoration: none;
+}
+
+hr {
+    margin: 10 0px;
+    border-top: 1px solid #d2d2d2;
+}
+
+.footerHand{
+	padding-bottom:200px;
+}
+.bodyContainer{
+	position:relative;width:100%;min-height:100%;
+}
+
+.bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+
+.bs-callout-info {
+    border-left-color: #1b809e;
+}
+
+.sequence p{
+	margin: 0px;
+	padding: 0px;
+	font-family: monospace;
+}
+
+body{
+	font-family:"微软雅黑",'Microsoft YaHei',Arial,sans-serif;
+}
+
+.func:hover{
+	cursor:pointer;
+	background-color: #62a9e0;
+}
+.viewpathway .warp li.list-group-item,li.genelist{
+	font-size: 10px;
+	padding: 5px 10px;
+	margin: 0px;
+}
+
+li.genelist a:hover{
+	text-decoration: none;
+}
+
+li.genelist:hover{
+	background-color: #EEE;
+}
+
+.wrap{
+	position:absolute;
+	padding: 0px;
+	background-color:#FFF;
+	border-radius: 5px;
+	border: 1px solid #333;
+	z-index:9999;
+}
+
+.nav_menubar{
+	padding: 10px 0px 0px 0px;
+}
+
+.item.bg1{
+	height: 300px;
+	background-image: url('../img/bg01.jpg');
+	background-size:100% 100%;
+	background-position:center;
+}
+.item.bg2{
+	height: 300px;
+	background-image: url('../img/bg02.jpg');
+	background-position:center;
+	background-repeat: no-repeat;
+}
+.item.bg3{
+	height: 300px;
+	background-image: url('../img/bg03.jpg');
+	background-position:center;
+	background-repeat: no-repeat;
+}
+
+.item .container{
+	padding: 20px;
+	opacity: 0.85;
+	border-radius: 5px;
+	text-align: left;
+}
+
+.mainbox{
+
+}
+
+.nav>li>a:focus, .nav>li>a{
+	color: #FFF;
+}
+
+.nav>li>a:focus, .nav>li>a:hover{
+	color: #000;
+}
+
+.carousel-caption .container{
+	text-shadow: none;
+}
+
+.carousel-caption {
+	padding-bottom: 0px;
+	width:900px;
+	margin: auto auto;
+	left:0px;
+	right:0px;
+}
+
+.navbar div.container,.footer div.container{
+	position: static;
+	z-index: 0;
+}
+
+div.textfilter input {
+	height:16px;
+}
+
+.jbrowseHierarchicalTrackSelector > .header > h2.title{
+	font-size: 16px;
+}
+
+.tundra .menuBar{
+	display: none;
+}
+
+label{
+	font-weight: normal;
+}
+
+div.track-label, div.tracklist-label{
+	font-weight: normal;
+}
+
+.item .pageCore{
+	background: #58a;
+	background: linear-gradient(to left top, transparent 50%,rgb(0,100,180) 0) no-repeat 100% 100% / 3em 3em, linear-gradient(-45deg,transparent 2.12em,#58a 0);
+    position: relative;
+    border-radius: 10px;
+	color: #FFF;
+	height: 230px;
+	padding: 20px 70px;
+}
+
+.homehead .carousel-control{
+	background:none ;
+}
+
+.dashed{
+    background-image: url(/src/img/dash.jpg);
+	background-repeat: repeat-x;
+	background-position: center;
+	padding: 50px 0px;
+}
+
+
+.dl-horizontal .left{
+	text-align: right;
+	padding: 5px;
+}
+.dl-horizontal .right{
+	text-align: left;
+	padding: 5px;
+}
+
+.navbar-right .form-control{
+	width:150px;
+}
+.nav>li>a {
+	padding: 10px 10px;
+}
+
+div.circleblock p{
+	text-align: center;
+}

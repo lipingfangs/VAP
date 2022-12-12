@@ -1,34 +1,65 @@
 import matplotlib.pyplot as plt
-import sys
-import os
 #import pandas as pd
 import matplotlib.patches as mpatches
-sys.path.append("/share/lfp/Graphdraw/VSAG/src")
+from mpld3 import *
+import mpld3
+import os
+import sys
+#sys.path.append("/share/lfp/Graphdraw/VSAG/src")
+from src.coverage import *
+from src.cutpathwayreliablebed import *
+from src.drawread import *
+from src.drawtrack import *
+from src.filiterthenotpairtrack import *
+from src.gaingene import *
+from src.geneannotation import *
+from src.legendblock import *
+from src.mutilplesamplecoverage import *
+from src.phasesequence import *
+from src.populationfreq import *
+from src.readsnptrack import *
+from src.snptrack import *
+from src.sortread import *
 
-from cutpathwayreliablebed import * 
-from drawcoverage import * 
-from drawread  import * 
-from  drawtrack import * 
-from  geneannotation import * 
-from filiterthenotpairtrack import *
-#basic control
+
+#input of file and dir
 def mainVSAG(args):
-    inindex = args.inindex
     outimage = args.out
-    imagatype = args.imtype #"svg" #png,jpg
-    anntrack = args.anntracks#0
-    pairend =args.pairend #0
-    genefile = args.geneinfo # gene info file with .bed
-    pairendsearchranges = args.pairendrange #200
-    pairendtheraolds = args.pairendtheraold #1
-    if genefile != "none":
-        drawgene = 1
+    graphgff = args.gff
+    inindex = args.inindex
+    phasefastafile = args.fa
+    genespecificbed = args.geneinfo
+
+    #basic control
+    filitertracklength = args.fl #filiter the track short than 500
+    #filitertrackornot = 0
+    drawtype = args.drawtype #read" #"#"read","coverage","mutiplesamples""populationfreq" ,"track"
+    imagatype = args.imtype  #png,jpg
+    anntrack =args.anntracks #0
+    phasefastaornot = 0
+    gaingeneornot = args.gaingene
+    if genespecificbed  != "none" or  gaingeneornot!=0:
+        if graphgff == "none" and gaingeneornot!=0:
+             drawgene = 0
+        else:
+             drawgene = 1
     else:
         drawgene = 0
-    middlethetrackandread = args.middle
-    drawtype = args.drawtype #"#"#"read","coverage","mutiplesamples"
-    
+        
     #mutiplesamples = 0
+    middlethetrackandread = args.middle
+    drawsnp = args.snp#snp in short scale
+    drawreadsnp = args.snp #snp in short reads
+    pairend =args.pairend 
+    pairendsearchranges = args.pairendrange #200
+    pairendtheraolds = args.pairendtheraold #1
+    displayonline  = args.dw #1
+    legend = args.legend
+    legendheight = args.legendheight
+    writethereadnameornot = args.rn
+    trackdireactionornot = args.td
+    readsdirection = args.rd
+    
     #color
     drawtrackcolorlist = args.trackcolor.split(",")
     drawtrackcolor = [drawtrackcolorlist[0],drawtrackcolorlist[1]]
@@ -48,41 +79,82 @@ def mainVSAG(args):
     dpisize = args.ppi
     
     fig=plt.figure(dpi=dpisize,figsize=(sizex,sizey))
+    ax=plt.gca()
+    ax.get_yaxis().set_visible(False)
     plt.xlabel(xlabelname,fontweight ='bold', size=18)
     plt.ylabel(ylabelname, fontweight ='bold',size=18)
+    
+    #plt.axis('off')
 
 
-    sizetrackx, sizetracky, maintrack, pathwaytracks,linepointx,linepointy,dictracks,dicpathwaybottom  = readpathwaybed(inindex+"/pathwaybed.bed",drawtrackcolor,middlethetrackandread)
-    readtracks,linepointpairendx,linepointpairendy = readreadbed(inindex+"/reads.bed",dictracks,drawreadcolor)
+    if filitertracklength > 0:
+        print("cat "+inindex+"/pathwaybed.bed |awk '{if($3-$2>"+str(filitertracklength)+"){print $0}}' > "+inindex+"/pathwaybeddraw.bed")
+        os.system("cat "+inindex+"/pathwaybed.bed |awk '{if($3-$2>"+str(filitertracklength)+"){print $0}}' > "+inindex+"/pathwaybeddraw.bed")
+    else:
+        print("cp "+inindex+"/pathwaybed.bed "+inindex+"/pathwaybeddraw.bed")
+        os.system("cp "+inindex+"/pathwaybed.bed "+inindex+"/pathwaybeddraw.bed")
+
+    sizetrackx, sizetracky, maintrack, pathwaytracks,linepointx,linepointy,dictracks,dicpathwaybottom,mainlength  = readpathwaybed(inindex+"/pathwaybeddraw.bed",drawtrackcolor,middlethetrackandread,trackdireactionornot)
+
 
     for i in range(len(sizetrackx)): #pic size
         plt.plot(sizetrackx[i], sizetracky[i], color='white')
 
+    #page start and legend x,y position
+    sizexzero = sizetrackx[0][0]
+    sizeyzero =  sizetracky[0][0]
+    sizexcoff = (sizetrackx[0][1]- sizetrackx[0][0])/8
+    print(sizexzero,sizeyzero)
+    #base function draw the genome tracks
     rectlist = []
     rectlist.append(maintrack)
     annrectlist = []
-    #base function draw the genome tracks
+    laynum = 0
     for i in pathwaytracks:
         rectlist.append(i)
+        laynum+=1
     for i in rectlist:   
         plt.gca().add_patch(i)
+
+    if   legend  ==1:
+        legendblockmain = legendblock(drawtrackcolor[0],"Main Pathway",sizexzero,sizeyzero,legendheight,sizexcoff/2,laynum)
+        sizexzero = sizexzero + sizexcoff
+        plt.gca().add_patch(legendblockmain)
+        legendblockpathway = legendblock(drawtrackcolor[1],"Branch Pathway",sizexzero,sizeyzero,legendheight,sizexcoff/2,laynum)
+        sizexzero = sizexzero + sizexcoff
+        plt.gca().add_patch(legendblockpathway)
+    #line of track varition    
     for i in range(len(linepointx)):
         plt.plot(linepointx[i], linepointy[i], color='pink',zorder=0)
 
     if  drawtype == "read":
+        readtracks,linepointpairendx,linepointpairendy,dicreaddetailinf = readreadbed(inindex+"/reads.bed",dictracks,drawreadcolor,readsdirection)
+
         for i in readtracks:   
             plt.gca().add_patch(i)
+        if   legend  ==1:
+            legendblockmain = legendblock(drawreadcolor,"Read",sizexzero,sizeyzero,legendheight,sizexcoff/2,laynum)
+            sizexzero +=  sizexcoff
+            plt.gca().add_patch(legendblockmain)
         #print(readtracks)
         if pairend == 1:
             for i in range(len(linepointpairendx)):
                 plt.plot(linepointpairendx[i], linepointpairendy[i], color=pairendlinecolor,alpha=0.2)
-        # draw the negvation annotation
+            if   legend  ==1:
+                legendblockmain = legendblock(pairendlinecolor,"PE-inf",sizexzero,sizeyzero,legendheight/6,sizexcoff/2,laynum)
+                sizexzero = sizexzero + sizexcoff
+                plt.gca().add_patch(legendblockmain)
+
         if anntrack == 1:
+            if   legend  ==1:
+                legendblockmain = legendblock(anncolor,"Reliable Track",sizexzero,sizeyzero,legendheight,sizexcoff/2,laynum)
+                sizexzero = sizexzero + sizexcoff
+                plt.gca().add_patch(legendblockmain)
             bamlist = os.listdir(inindex)
             for i in bamlist:
                 if i.find("main") != -1:
                     annmainbam = i
-            supporttracks, supportsubtracks= filiterthenotpairtrack(inindex+"/"+ annmainbam, inindex+"/pathwaybed.bed",pairendsearchranges,pairendtheraolds)
+            supporttracks, supportsubtracks= filiterthenotpairtrack(inindex+"/"+ annmainbam, inindex+"/pathwaybeddraw.bed",pairendsearchranges,pairendtheraolds)
             supporttracksfile = open(inindex+"/pathways.reliable.bed","w")
             for i in supportsubtracks:
                 print(i[0],i[1],i[2],"mainsubreliable",file =  supporttracksfile)
@@ -96,23 +168,71 @@ def mainVSAG(args):
                 annrectlist.append(i)
             for i in annrectlist:   
                 plt.gca().add_patch(i)
+            if phasefastaornot ==1:
+                phasefasteseq = phasesequence(inindex+"/pathways.reliable.bed",phasefastafile)
+                phasefasteseqfile = open(inindex+"/"+outimage+".fa","w")
+                print(">phasequence",file =  phasefasteseqfile)
+                print( phasefasteseq ,file =  phasefasteseqfile)
+                phasefasteseqfile.close()
+
 
     if  drawtype == "coverage":
-        coveragerectedlist = readcoveragebed(inindex+"/depth.regions.bed",dictracks,coveragecolor)
+        coveragerectedlist = readcoveragebed(inindex+"/pathways.regions.bed",dictracks,coveragecolor)
         for i in  coveragerectedlist:
             plt.gca().add_patch(i)
 
     if drawtype == "mutiplesamples":
-        mutiplesamplescoveragerectedlist =  mutilplesamplecoveragebed(inindex+"/mutildepth.regions.bed",dictracks,mutilplesamplecolor)
+        mutiplesamplescoveragerectedlist =  mutilplesamplecoveragebed(inindex+"/mutiltestdepth.regions.bed",dictracks,mutilplesamplecolor)
         for i in   mutiplesamplescoveragerectedlist:
             plt.gca().add_patch(i)
 
-    if drawgene == 1:  
-        genetractlist, genenamelist, genenamepoilist = geneannbed(inindex+"/withassembly/gene.bed",dictracks,genecolor)
+    if drawtype == "populationfreq":
+        populationfrequencybedrectedlist,samplesreadbottomtemplist =  populationfrequencybed(inindex+"/population.frq.bed",dictracks,mutilplesamplecolor,mainlength,anncolor)
+        for i in   populationfrequencybedrectedlist:
+            plt.gca().add_patch(i)  
+        if   legend  ==1:
+            for i in range(len(samplesreadbottomtemplist)):    
+               # print(mutilplesamplecolor)
+                legendblockmain = legendblock(mutilplesamplecolor[i],samplesreadbottomtemplist[i],sizexzero,sizeyzero,legendheight,sizexcoff/2,laynum)
+                sizexzero = sizexzero + sizexcoff
+                plt.gca().add_patch(legendblockmain)
+            legendblockmain = legendblock(anncolor,"Different interval",sizexzero,sizeyzero,legendheight,sizexcoff/2,laynum)
+            plt.gca().add_patch(legendblockmain)   
+
+    if gaingeneornot == 1:  
+        gaingene(inindex,graphgff,inindex+"/pathwaybeddraw.bed")
+        genetractlist, genenamelist, genenamepoilist = geneannbed(inindex+"/pathwaygaingene.bed",dictracks,genecolor)
         print(genenamelist)
         for i in  genetractlist:
             plt.gca().add_patch(i)
         for i in range(len(genenamelist)):
-            plt.text(genenamepoilist[i][0], genenamepoilist[i][1], " "+genenamelist[i], fontsize=10, color=genecolor)
+            plt.text(genenamepoilist[i][0], genenamepoilist[i][1], " "+genenamelist[i], fontsize=4, color=genecolor)
+
+    if  gaingeneornot == 0 and drawgene == 1:  
+        genetractlist, genenamelist, genenamepoilist = geneannbed(genespecificbed,dictracks,genecolor)
+        print(genenamelist)
+        for i in  genetractlist:
+            plt.gca().add_patch(i)
+        for i in range(len(genenamelist)):
+            plt.text(genenamepoilist[i][0], genenamepoilist[i][1], " "+genenamelist[i], fontsize=6, color=genecolor)
+
+
+
+    if drawsnp == 1:
+        sizerange = int(sizetrackx[0][1]- sizetrackx[0][0])
+        print("Snp display sizerange:",sizerange,end = ":")
+        if sizerange < 2100:
+            dicseqtrack = snptrack(inindex+"/pathwaybed.bed",middlethetrackandread,phasefastafile)
+           # print(dicseqtrack,"sas")
+            if drawreadsnp == 1:
+                 varitionblocklist = readsnptrack(dicseqtrack,inindex,dicreaddetailinf,writethereadnameornot)
+                 for i in  varitionblocklist:
+                    plt.gca().add_patch(i)
+        else:
+            print("too large interval, not display")
+
 
     plt.savefig(outimage+"."+imagatype ,dpi = dpisize )
+
+    if displayonline == 1:
+        save_html(fig,outimage+"."+"html")

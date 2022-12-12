@@ -24,7 +24,7 @@ All pages are packaged in the webserver index. You can directly copy the page to
 **Population mode*
 
 ```
-graphsamtools <info.file> <chromosome> <start posistion> <end posistion> population <out index> <population 1>,<population 1 name> <population 2>,<population 2 name> <out index>
+graphsamtools <info.file> <chromosome> <start posistion> <end posistion> population <population 1>,<population 1 name> <population 2>,<population 2 name> <out dir>
 
 ```
 **For drawing and graph navigation*
@@ -35,7 +35,10 @@ optional arguments:
   -h, --help            show this help message and exit
   --inindex ININDEX     the index of your data after process of graphsamtools
   --out OUT             The output file name of the image
-  --drawtype DRAWTYPE   Types of your data you want to visualization (onlytrack/read/coverage/mutiplesamples)
+  --geneinfo GENEINFO   bed file contained gene info
+  --gff GFF             Annotation file of the graph genome
+  --fa FA               Phase the sequence of reliable tracks
+  --drawtype DRAWTYPE   Types of your data you want to visualization (onlytrack/read/coverage/mutiplesamples/Popultaion)
   --anntracks ANNTRACKS
                         High light the pair-end supported tracks(pathways), default not (0)
   --pairend PAIREND     Display the pair end information or not, default not (0)
@@ -43,8 +46,16 @@ optional arguments:
                         The search range in the main track, default: 200
   --pairendtheraold PAIRENDTHERAOLD
                         The selected theraold in the main track, default: 1
+  --gaingene GAINGENE   gain the gene from the gff file, default: 0
+  --fl FL               The filter the track lengths below
+  --td TD               draw the track direction or not
+  --rd RD               draw the read direction or not
+  --rn RN               draw the read name or not
+  --legend LEGEND       draw the legend or not
+  --legendheight LEGENDHEIGHT
+                        The height of legend
+  --snp SNP             draw the snp information or not (interval<2000bp)
   --middle MIDDLE       Middle the track and read, default yes (1)
-  --geneinfo GENEINFO   bed file contained gene info
   --trackcolor TRACKCOLOR
                         Track colors including main track and the branches default:#CDCD00,#00BFFF
   --readcolor READCOLOR
@@ -64,5 +75,7 @@ optional arguments:
   --ylabel YLABEL       Label of your X axi
   --ppi PPI             The dpi of your image
   --imtype IMTYPE       The image type of output;default:png; Support:pdf,svg,jpg
+  --dw DW               web (.html output or not)
+
 
 ```

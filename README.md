@@ -1,6 +1,7 @@
 # VSAG
 a programme for visualization of short sequence alignment and path navigation in graphical pan-genome
-![out](https://user-images.githubusercontent.com/46209789/200499386-cb1277d2-f323-4829-bdb3-cc9c34a87f35.png)
+![1670828199388](https://user-images.githubusercontent.com/46209789/206981536-67cf7832-e288-4e54-be32-74f2d368e5a9.png)
+
 ***Install***
 **Dependency*
 
@@ -33,11 +34,15 @@ graphsamtools <info.file> <chromosome> <start posistion> <end posistion> populat
 
 optional arguments:
   -h, --help            show this help message and exit
+
+Input and output:
   --inindex ININDEX     the index of your data after process of graphsamtools
   --out OUT             The output file name of the image
   --geneinfo GENEINFO   bed file contained gene info
   --gff GFF             Annotation file of the graph genome
   --fa FA               Phase the sequence of reliable tracks
+  
+Function option:
   --drawtype DRAWTYPE   Types of your data you want to visualization (onlytrack/read/coverage/mutiplesamples/Popultaion)
   --anntracks ANNTRACKS
                         High light the pair-end supported tracks(pathways), default not (0)
@@ -55,6 +60,8 @@ optional arguments:
   --legendheight LEGENDHEIGHT
                         The height of legend
   --snp SNP             draw the snp information or not (interval<2000bp)
+  
+Apperance option:
   --middle MIDDLE       Middle the track and read, default yes (1)
   --trackcolor TRACKCOLOR
                         Track colors including main track and the branches default:#CDCD00,#00BFFF

@@ -15,6 +15,7 @@ dicstin = {}
 dicstined ={}
 dicdirection = {}
 reflist= []
+genelistlnotonelevel = []
 
 for i in genelistlorg:
     i = i.strip()
@@ -27,8 +28,13 @@ for i in genelistlorg:
 
 for i in genelistl:
      i = i.strip()
-    if len(i.split()) >2:
+     if len(i.split()) >2:
+       # templine = ""
+        #templine = "_".join(temp[0].split("_")[:-2])
         temp = i.strip().split()
+        templine = ""
+        templine = "_".join(temp[0].split("_")[:-2])        
+        temp[0] = templine+","+temp[0].split("_")[-2]+","+temp[0].split("_")[-1]
         if i.find("<") !=-1:
             dicdirection[temp[0][1:]] = "Reverse"
         else:
@@ -39,8 +45,12 @@ for i in genelistl:
         if temp[1].split(":")[0] in reflist and temp[2].split(":")[0] in reflist:
             chrMSU = temp[1].split(":")[0]
             #print(chrMSU)
-            rangeMSU =  temp[1].split(":")[1] +"-"+ temp[2].split(":")[1]
+            rangeMSU =  temp[1].split(":")[1] +","+ temp[2].split(":")[1]
             #print(rangeMSU)
+            templine = ""
+            templine = "_".join(temp[0].split("_")[:-2])
+                
+            temp[0] = templine+","+temp[0].split("_")[-2]+","+temp[0].split("_")[-1]
             dicstin[temp[0]] = [rangeMSU,chrMSU]
         else:
             genelistlnotonelevel.append(i)
@@ -56,7 +66,9 @@ for i in dicstin.keys():
     print(dicdirection[i])
 
 for i in genelistlnotonelevel:
+    
     temp = i.strip().split()
+    temp[0] = temp[0]+","+temp[0].split("_")[-1]+","+temp[0].split("_")[-1]
     posout = ""
     posoneout = ""
     postwoout = ""

@@ -157,7 +157,7 @@ def mainVAG(args):
                 plt.gca().add_patch(legendblockmain)
             bamlist = os.listdir(inindex)
             for i in bamlist:
-                if i.find("main") != -1 and i.find("bai") == -1:
+                if i.find("main") != -1 and i.find("bai") == -1 and i.find("region") == -1 and i.find("mosdepth") == -1:
                     annmainbam = i
             supporttracks, supportsubtracks= filiterthenotpairtrack(inindex+"/"+ annmainbam, inindex+"/pathwaybeddraw.bed",pairendsearchranges,pairendtheraolds)
             supporttracksfile = open(inindex+"/pathways.reliable.bed","w")

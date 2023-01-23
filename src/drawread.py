@@ -1,7 +1,7 @@
-from src.sortread import *
+#from src.sortread import *
 from src.sortreadnovel import *
 def readreadbed(readsbedfilename,dictracks,colors,readsdirection):
-    
+    print(dictracks,"dictracks enter")
     readsbedfile = open(readsbedfilename,"r")
     readsbedfileline =   readsbedfile.readlines()
     readsbedfile.close()
@@ -35,14 +35,19 @@ def readreadbed(readsbedfilename,dictracks,colors,readsdirection):
             readfordrawstart= dictracks[chrom][2] + readforpathpointlength 
             readlength = readend - readstart
             readheight = 0.05
+            readfordrawend = readfordrawstart + readlength
         else:
             continue
         step = 0.075
         #readedistribution,readstart,readend,readbottomtemp,stopsignal = sortread(readedistribution,readstart,readend,readbottomtemp,step)
-        layend,readstart,readend,readbottomtemp,stopsignal = sortreadnovel(layend,readstart,readend,readbottomtemp,step)
-
+        
+            
+        layend,readfordrawend,readfordrawend,readbottomtemp,stopsignal = sortreadnovel(layend,readfordrawstart,readfordrawend,readbottomtemp,step)
+        #print(layend,"layend")
         #print(readfordrawstart, readbottomtemp,readlength,  readheight,"sas")  
        # print(readedistribution,readstart,readend,readbottomtemp,"sas")
+        #if chrom == "Chr7G630genomefa_2615565_2616051":
+            #print(layend,readstart,readend,readbottomtemp,stopsignal,"for Chr7G630genomefa_2615565_2616051")
         if stopsignal ==0:
             left, bottom, width, height  = (readfordrawstart, readbottomtemp,readlength,  readheight) 
             readrected=mpatches.Rectangle((left,bottom),width,height, 

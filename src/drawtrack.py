@@ -89,8 +89,8 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
             pathwaysmainend = pathwaystartinmain+pathwaylength
             pathwaybottomtemp =  mainbottom + 3
             branchdistribution,pathwaystartinmain,pathwaysmainend,pathwaybottom,stopsignal = sortread(branchdistribution,pathwaystartinmain,pathwaysmainend,pathwaybottomtemp,3)    
-            print(pathwaytrackname,branchdistribution)
-            print(pathwaystartinmain,"enter")
+            #print(pathwaytrackname,branchdistribution)
+            #print(pathwaystartinmain,"enter")
             left, bottom, width, height = (pathwaystartinmain, pathwaybottom,pathwaylength, 0.5)
             pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
                                     fill=True,

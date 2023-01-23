@@ -13,7 +13,7 @@ python setup.py install
 ```
 
 **web-server*
-All pages are packaged in the webserver index. You can directly copy the page to the login index of the server to complete the deployment and make it accessible. If you have any difficulty, Please feel free to contact the author (lpf_bio@foxmail.com); The example platform was accessible with https://ricegenomichjx.xiaomy.net/VSAG/sequenceextraction.php
+All pages are packaged in the webserver index. You can directly copy the page to the login index of the server to complete the deployment and make it accessible. If you have any difficulty, Please feel free to contact the author (lpf_bio@foxmail.com); The example platform was accessible with https://ricegenomichjx.xiaomy.net/VAG/sequenceextraction.php
 
 ***Usage***
 

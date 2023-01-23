@@ -121,6 +121,14 @@ python runVAG.py  --inindex <index generated from graphsamtools>
 python runVAG.py  --inindex <index generated from graphsamtools>  --drawtype coverage
 
 ```
+ 
+ **Draw the  alignment with Mate pair information and predict the reliable segements(nodes)*
+
+```
+
+python runVAG.py  --inindex <index generated from graphsamtools>  --pairend 1 --anntrack 1
+
+```
 ***Contacts and cite***
 
 IF you have any problem or comment in usage, please feel free to contact the aurthor (fangping.li@scau.edu.cn) who will reply on time!

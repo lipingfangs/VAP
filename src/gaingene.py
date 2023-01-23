@@ -16,16 +16,16 @@ def gaingene(inindex,gfffilename,pathwaybedfilename):
         for j in gfffileline:
             if j.find("#") == -1:
                 temp = j.split()
-                if temp[2] == "gene":
+                if temp[2] == "gene" or temp[2].find("transposon") != -1:
                     gchrn = temp[0]
                     gst = int(temp[3])
                     ged = int(temp[4])
-                    if  gchrn.find("_") != -1:
+                    if  gchrn.find("_") != -1 and len(gchrn.split("_"))>2:
                        # print(gchrn)
                         gst += int(gchrn.split("_")[1])
                         ged += int(gchrn.split("_")[1])
                     direction = temp[6]
                     geneid  = temp[8].split("ID=")[1].split(";")[0]
                     if st < gst and  ged<ed and gchrn ==chrn:
-                        print(gchrn,gst,ged,geneid,geneid,file = gaingenefile)
+                        print(gchrn,gst,ged,geneid,direction,file = gaingenefile)
     gaingenefile.close()

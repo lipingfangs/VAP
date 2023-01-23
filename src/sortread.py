@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-def sortread(readedistribution,readstart,readend,readbottomtemp):   
+def sortread(readedistribution,readstart,readend,readbottomtemp,step):   
     stopsignal = 0
     #print(readedistribution)
     mcount = 0
@@ -16,15 +16,15 @@ def sortread(readedistribution,readstart,readend,readbottomtemp):
            # print( readbottomtemp,haveusebottomtemp)
             if readbottomtemp == haveusebottomtemp:
                 #print("sa",countn)
-                if  haveusestart <= readstart <=haveuseend or haveusestart <= readend<=haveuseend:
-                    readbottomtemp += 0.075
+                if  haveusestart <= readstart <=haveuseend or haveusestart <= readend<=haveuseend or readstart<=   haveusestart<= readend or readstart <=  haveuseend <= readend:
+                    readbottomtemp += step
                     break
             countn +=1
         if countn == len(readedistribution):
             #print(countn,len(readedistribution))
             readedistribution.append([readstart,readend,readbottomtemp])
             break
-        if mcount > 15:
+        if mcount > 20:
             stopsignal = 1
             break
     return readedistribution,readstart,readend,readbottomtemp,stopsignal

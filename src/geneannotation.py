@@ -20,7 +20,7 @@ def geneannbed(genebedfilename,dictracks,genecolors):
         i = i.strip()
         chrom = i.split()[0]
         if chrom in dictracks.keys():
-            genebottomtemp = dictracks[chrom][0] - 1
+            genebottomtemp = dictracks[chrom][0] - 0.75
             genestart  =int(i.split()[1]) 
             geneend =int(i.split()[2])
             geneforpathpointlength = genestart - dictracks[chrom][1] 
@@ -29,7 +29,7 @@ def geneannbed(genebedfilename,dictracks,genecolors):
         else:
             continue
         if  i.split()[4] == "-":
-            left, bottom, width, height = (genefordrawstart, genebottomtemp+0.1,-genelength,  geneheight) 
+            left, bottom, width, height = (genefordrawstart+genelength, genebottomtemp+0.1,-genelength,  geneheight) 
         else:
             left, bottom, width, height = (genefordrawstart, genebottomtemp+0.1,genelength,  geneheight) 
         generected=mpatches.Arrow(left,bottom,width,0, 
@@ -38,6 +38,6 @@ def geneannbed(genebedfilename,dictracks,genecolors):
                                    ,width=0.5,lw = 0.5) 
         genetract.append(generected)
         genenamex = genefordrawstart#+genelength
-        genenamey = genebottomtemp-0.25
+        genenamey = genebottomtemp-0.35
         genenamepoilist.append([genenamex,genenamey])
     return genetract, genenamelist, genenamepoilist

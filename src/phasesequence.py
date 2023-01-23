@@ -2,8 +2,7 @@ def phasesequence(reliablebed,panfa):
     reliablebedfile= open(reliablebed,"r")
     reliablebedfilelist =   reliablebedfile.readlines()
     reliablebedfile.close()
-    dicsort = {}
-    sortpoi = []
+    dicsortsortpoi = []
     reliablebedfilelistsort = []
     for i in reliablebedfilelist:
         if i.find("mainsubreliable") !=-1:

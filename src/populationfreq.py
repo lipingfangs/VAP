@@ -12,6 +12,8 @@ def populationfrequencybed(coveragebedfilename,dictracks,mutilplesamplecolor,mai
     trackstartlist = []
     textwithdraw = maintracklength/100 
     dicfrequencyscores = {}
+    trackstartandbottomlist = [] #accelerate the cycle, get rid of unnecessary
+    #dictrackbottomlist = {}
     for i in coveragefileline:
         #print(i)
         samplename = i.split()[5]
@@ -28,9 +30,11 @@ def populationfrequencybed(coveragebedfilename,dictracks,mutilplesamplecolor,mai
         chrom = i.split()[3]
         if chrom in dictracks.keys():
             readbottomtemp = dictracks[chrom][0] + 0.1 + dicsamplesreadbottomtemp[samplename][0]
-            if readbottomtemp not in readbottomtemplist:
+            if [readbottomtemp,dictracks[chrom][2]] not in trackstartandbottomlist:
+                trackstartandbottomlist.append([readbottomtemp,dictracks[chrom][2]])
+           # if readbottomtemp not in readbottomtemplist:
                 readbottomtemplist.append(readbottomtemp)
-            if dictracks[chrom][2] not in trackstartlist:
+                #if dictracks[chrom][2] not in trackstartlist:
                 trackstartlist.append(dictracks[chrom][2])
             readstart  =int(i.split()[1]) 
             readend =int(i.split()[2])
@@ -55,9 +59,10 @@ def populationfrequencybed(coveragebedfilename,dictracks,mutilplesamplecolor,mai
     print(readbottomtemplist, trackstartlist)
     rulerlength = 5
     rulerheight = 0.8
-    trackstartlist = int(len(readbottomtemplist)/len(trackstartlist)) * trackstartlist
+    #trackstartlist = int(len(readbottomtemplist)/len(trackstartlist)) * trackstartlist
     
     #ruler of frequencey
+    print(readbottomtemplist, trackstartlist,"ruler")
     for i in range(len(readbottomtemplist)): 
         left, bottom, width, height = (trackstartlist[i]-50 , readbottomtemplist[i],rulerlength,   rulerheight)
         coveragerected=mpatches.Rectangle((left,bottom),width,height, 

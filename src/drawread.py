@@ -1,4 +1,5 @@
 from src.sortread import *
+from src.sortreadnovel import *
 def readreadbed(readsbedfilename,dictracks,colors,readsdirection):
     
     readsbedfile = open(readsbedfilename,"r")
@@ -8,6 +9,7 @@ def readreadbed(readsbedfilename,dictracks,colors,readsdirection):
     readheight = 0.1
     readtract = []
     dicpoireadchromosome = {}
+    layend = {}
     readedistribution = []
     #readnamelist  = {}
     dicposition = {}
@@ -35,10 +37,12 @@ def readreadbed(readsbedfilename,dictracks,colors,readsdirection):
             readheight = 0.05
         else:
             continue
+        step = 0.075
+        #readedistribution,readstart,readend,readbottomtemp,stopsignal = sortread(readedistribution,readstart,readend,readbottomtemp,step)
+        layend,readstart,readend,readbottomtemp,stopsignal = sortreadnovel(layend,readstart,readend,readbottomtemp,step)
 
-        readedistribution,readstart,readend,readbottomtemp,stopsignal = sortread(readedistribution,readstart,readend,readbottomtemp)
         #print(readfordrawstart, readbottomtemp,readlength,  readheight,"sas")  
-
+       # print(readedistribution,readstart,readend,readbottomtemp,"sas")
         if stopsignal ==0:
             left, bottom, width, height  = (readfordrawstart, readbottomtemp,readlength,  readheight) 
             readrected=mpatches.Rectangle((left,bottom),width,height, 

@@ -3,6 +3,7 @@ import matplotlib.patches as mpatches
 def readonlylargedeletion(dicseqtrack,bamdir,dicreaddetailinf,writethereadnameornot):
     import pysam
     import os
+    print(dicseqtrack,"dicseqtrack")
     varitionblocklist = []
     for i in list(os.listdir(bamdir)):
         if i.find("bam") !=-1:

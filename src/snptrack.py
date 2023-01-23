@@ -78,7 +78,7 @@ def snptrack(pathwaybedfilename,dictracks,middlethetrackandread,panfadic,tracksn
             pathwaysmainend = pathwaystartinmain+pathwaylength
             #plt.text(pathwaystartinmain, pathwaybottom, pathwayseq,fontsize=1)
             if tracksnpornot ==0 :
-                dicseqtrack[maintrackname] = [int(i.split()[1]),"none",pathwaybottom]
+                dicseqtrack[pathwaytrackname] = [int(i.split()[1]),"none",pathwaybottom]
                 continue
             pathwayseq =  dicfa[pathwaytrackname]
             #branchdistribution,pathwaystartinmain,pathwaysmainend,pathwaybottom,stopsignal = sortread(branchdistribution,pathwaystartinmain,pathwaysmainend,pathwaybottomtemp,3)    

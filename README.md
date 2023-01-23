@@ -1,5 +1,5 @@
-# VSAG
-a programme for visualization of short sequence alignment and path navigation in graphical pan-genome
+# VAG
+a programme for visualization of reads alignment and path navigation in graphical pan-genome
 ![1670828199388](https://user-images.githubusercontent.com/46209789/206981536-67cf7832-e288-4e54-be32-74f2d368e5a9.png)
 
 ***Install***

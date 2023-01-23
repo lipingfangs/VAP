@@ -46,17 +46,17 @@ Upload the <out dir>.tar.gz.
 
 ```
 
+usage:python runVAG.py -h (for more help) 
+
+VSAG is a software for the visualization of short read alignment of graphical pan-genome
+
 optional arguments:
   -h, --help            show this help message and exit
-
-Input and output:
   --inindex ININDEX     the index of your data after process of graphsamtools
   --out OUT             The output file name of the image
   --geneinfo GENEINFO   bed file contained gene info
   --gff GFF             Annotation file of the graph genome
   --fa FA               Phase the sequence of reliable tracks
-  
-Function option:
   --drawtype DRAWTYPE   Types of your data you want to visualization (onlytrack/read/coverage/mutiplesamples/Popultaion)
   --anntracks ANNTRACKS
                         High light the pair-end supported tracks(pathways), default not (0)
@@ -74,8 +74,11 @@ Function option:
   --legendheight LEGENDHEIGHT
                         The height of legend
   --snp SNP             draw the snp information or not (interval<2000bp)
-  
-Apperance option:
+  --onlysv ONLYSV       Only display the SV large than thersold (default for >5bp) or not
+  --onlysvthersold ONLYSVTHERSOLD
+                        Thersold of length only display the SV large than thersold or not
+  --coveragesteplength COVERAGESTEPLENGTH
+                        Length of step with coverage (default for 100bp)
   --middle MIDDLE       Middle the track and read, default yes (1)
   --trackcolor TRACKCOLOR
                         Track colors including main track and the branches default:#CDCD00,#00BFFF
@@ -100,3 +103,28 @@ Apperance option:
 
 
 ```
+***Command example***
+
+**Draw the alignment of read*
+
+```
+
+python runVAG.py  --inindex <index generated from graphsamtools> 
+
+```
+
+**Draw the coverage of reads alignment*
+
+```
+
+python runVAG.py  --inindex <index generated from graphsamtools>  --drawtype coverage
+
+```
+***Contacts and cite***
+
+IF you have any problem or comment in usage, please feel free to contact the aurthor (fangping.li@scau.edu.cn) who will reply on time!
+
+IF the software participate in your researech , please cite the paper: Visualization and review of reads alignment on the graphical pan-genome with VAG
+Fangping Li, Haifei Hu, Zitong Xiao, Jingming Wang, Jieying Liu, Deshu Zhao, Yu Fu, Yijun Wang, Xue Yuan, Suhong Bu, Xiaofan Zhou, Junliang Zhao, Shaokui Wang
+bioRxiv 2023.01.20.524849; doi: https://doi.org/10.1101/2023.01.20.524849, Thank you so much
+

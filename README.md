@@ -1,14 +1,20 @@
 # VAG
-a programme for visualization of reads alignment and path navigation in graphical pan-genome
+A programme for visualization of reads alignment and path navigation in graphical pan-genome, The mapping stage of read to graph can be processed by vg giraffe/map or other similar softwares. The .bam file generated from the alignment was the file of input in VAG.
 ![main](https://user-images.githubusercontent.com/46209789/213981873-bc18ff74-93ff-4001-8ecd-3dfc1ed5992c.jpg)
 
 
 ***Install***
+
 **Dependency*
 
-Pysam, matplotlib, mpld3, Samtools, Bamtools
+Pysam, matplotlib, mpld3
+
+Samtools, Bamtools, mosdepth(to display reads coverage), seqkit (to display snp)
+
 php environment (for web), apache (for web)
+
 **Command tools*
+
 ```
 python setup.py install
 ```
@@ -33,7 +39,7 @@ graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam fi
 
 In snp mode within 2000bp:
 ```
-graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam file> <out dir> <.fa transform from .gfa with mapping >
+graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam file> <out dir> <graph>.fa
  
 ```
 **Population mode*

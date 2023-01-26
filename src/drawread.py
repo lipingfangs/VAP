@@ -1,5 +1,4 @@
 #from src.sortread import *
-from src.sortreadnovel import *
 def readreadbed(readsbedfilename,dictracks,colors,readsdirection):
     print(dictracks,"dictracks enter")
     readsbedfile = open(readsbedfilename,"r")
@@ -16,8 +15,13 @@ def readreadbed(readsbedfilename,dictracks,colors,readsdirection):
     linepointpairendx = []
     linepointpairendy = []
     dicreaddetailinf = {}
+    readchrtemp  = ""
     for i in readsbedfileline:
+        readchr =  i.split()[0]
         readname = i.split()[3].split("/")[0]
+        if  readchrtemp  != readchr:
+            layend = {}
+            readchrtemp =  readchr 
         readdirection = i.split()[5]
         #print(readname)
         i = i.strip()
@@ -46,8 +50,8 @@ def readreadbed(readsbedfilename,dictracks,colors,readsdirection):
         #print(layend,"layend")
         #print(readfordrawstart, readbottomtemp,readlength,  readheight,"sas")  
        # print(readedistribution,readstart,readend,readbottomtemp,"sas")
-        #if chrom == "Chr7G630genomefa_2615565_2616051":
-            #print(layend,readstart,readend,readbottomtemp,stopsignal,"for Chr7G630genomefa_2615565_2616051")
+        #if chrom == "barthii_chr01_1346706_1347849":
+            #print(layend,readstart,readend,readbottomtemp,stopsignal,"for barthii_chr01_1346706_1347849")
         if stopsignal ==0:
             left, bottom, width, height  = (readfordrawstart, readbottomtemp,readlength,  readheight) 
             readrected=mpatches.Rectangle((left,bottom),width,height, 
@@ -88,4 +92,6 @@ def readreadbed(readsbedfilename,dictracks,colors,readsdirection):
             linepointpairendx.append(linepointpairendxpoi)
             linepointpairendy.append(linepointpairendypoi)
         dicposition[readname] = [readfordrawstart, readbottomtemp,readlength,  readheight]
+       # readnametemp = readname
     return readtract,linepointpairendx,linepointpairendy,dicreaddetailinf
+

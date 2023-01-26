@@ -28,7 +28,13 @@ python script/getinf.py <graph>.fa > <info.file>
 **Extraction of related main and branch paths based on a certain reference genome interval*
 
 ```
- graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam file> <out dir>
+graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam file> <out dir>
+```
+
+In snp mode within 2000bp:
+```
+graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam file> <out dir> <.fa transform from .gfa with mapping >
+ 
 ```
 **Population mode*
 
@@ -129,6 +135,12 @@ python runVAG.py  --inindex <index generated from graphsamtools>  --drawtype cov
 python runVAG.py  --inindex <index generated from graphsamtools>  --pairend 1 --anntrack 1
 
 ```
+**Draw the distriubution of reads' coverage*
+
+```
+python runVAG.py  --inindex <index generated from graphsamtools> --drawtype coverage 
+```
+
 ***Contacts and cite***
 
 IF you have any problem or comment in usage, please feel free to contact the aurthor (fangping.li@scau.edu.cn) who will reply on time!

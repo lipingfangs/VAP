@@ -228,24 +228,28 @@ def mainVAG(args):
         for i in range(len(genenamelist)):
             plt.text(genenamepoilist[i][0], genenamepoilist[i][1], " "+genenamelist[i], fontsize=6, color=genecolor)
 
-
-
+            
     if drawsnp == 1 and drawtype == "read":
         drawonlylargesvinread = 0
         sizerange = int(sizetrackx[0][1]- sizetrackx[0][0])
         print("Snp display sizerange:",sizerange,end = ":")
         if sizerange < 2100:
-            phasefastafiledic = goonefasta(phasefastafile)
-            dicseqtrack = snptrack(inindex+"/pathwaybeddraw.bed",dictracks,middlethetrackandread,phasefastafiledic,1) #tracksnpornot
+            if phasefastafile !="none":
+                phasefastafiledic = goonefasta(phasefastafile)
+                aeqornot = 1
+            else:
+                phasefastafile = inindex+"/snpreference.fa"
+                phasefastafiledic = goonefasta(phasefastafile)
+                aeqornot = 0
+            dicseqtrack = snptrack(inindex+"/pathwaybeddraw.bed",dictracks,middlethetrackandread,phasefastafiledic,1,aeqornot) #tracksnpornot
            # print(dicseqtrack,"sas")
             if drawreadsnp == 1:
                  varitionblocklist = readsnptrack(dicseqtrack,inindex,dicreaddetailinf,writethereadnameornot)
                  for i in  varitionblocklist:
-                    plt.gca().add_patch(i)
+                    plt.gca().add_patch(i)  
         else:
-            drawonlylargesvinread = args.onlysv
             print("too large interval, not display")
-            
+            drawonlylargesvinread = args.onlysv
     if drawonlylargesvinread ==1 and drawtype == "read":
         print("Only show the large insertion and deletion")
         phasefastafiledic = ""

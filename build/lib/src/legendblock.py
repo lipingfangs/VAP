@@ -7,6 +7,6 @@ def legendblock(colors,text,xpoi,ypoi,legendheight,coefficient,laynum):
                                         fill=True,
                                         color=colors,
                                        linewidth=2) 
-    plt.text(xpoi,ypoi-0.2,text,fontsize=6.5)
+    plt.text(xpoi,ypoi-0.2,text,fontsize=10)
     return legendblock
-    
+

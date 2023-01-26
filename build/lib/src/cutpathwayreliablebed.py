@@ -6,9 +6,9 @@ def cutpathwayreliablebed(pathwaybedfilename,dicpathwaybottom,anncolor,middlethe
     readpathwaybedfileline =   readpathwaybedfile.readlines()
     readpathwaybedfile.close()
     annpathwaytracks  = []
-    mainbottom = 4.75
+    mainbottom = 2
     pathwaybottom = 1.75
-    pathwaybottomlist = [4.75]
+    pathwaybottomlist = [2]
     linepointx = []
     linepointy = []
     annmaintracksublist = []
@@ -40,7 +40,14 @@ def cutpathwayreliablebed(pathwaybedfilename,dicpathwaybottom,anncolor,middlethe
             pathwaybottom = dicpathwaybottom[pathwaytrackname]
             print(pathwaybottom)
             if middlethetrackandread == 1:
-                pathwaystartinmain = pathwaystartinmain - (pathwaylength/2)
+               # pathwaystartinmain = pathwaystartinmain - (pathwaylength/2)
+                pathwaymainmiddle = (pathwaystartinmain +  pathwayendinmain)/2
+                pathwaymiddle = (pathwaystartinmain +  pathwaystartinmain+pathwaylength)/2
+                comback =pathwaymainmiddle - pathwaymiddle
+                pathwaystartinmaintemp = pathwaystartinmain + comback
+                pathwayendinmain = pathwayendinmain + comback 
+                pathwaystartinmain = pathwaystartinmaintemp
+                #annotation the reliable segement
             left, bottom, width, height = (pathwaystartinmain, pathwaybottom,pathwaylength, 0.5)
             pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
                                     fill=True,

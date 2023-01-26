@@ -1,5 +1,3 @@
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 def snptrack(pathwaybedfilename,dictracks,middlethetrackandread,panfadic,tracksnpornot,aeqornot):
     #read sequence
     #panfafile =  open(panfa,"r")

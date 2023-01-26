@@ -1,0 +1,77 @@
+goininf=$1
+gochr=$2
+gostart=$3
+goend=$4
+goinbam=$5
+
+rm -rf graphsamtoolstempdir
+mkdir graphsamtoolstempdir
+
+echo "${gochr} ${gostart} ${goend} main"
+
+echo "${gochr} ${gostart} ${goend} main Forward"| awk -v OFS="\t" '{print $1,$2,$3,$4,$NF}'  > graphsamtoolstempdir/pathwaybed.bed
+cat $goininf | awk -v OFS="\t" -v gochr=${gochr} -v gostart=${gostart} -v goend=${goend} -F ",|-" '{if($6==gochr&&$4<goend&&$4>gostart){print $1,$2,$3,$6"-"$4"-"$5,$NF}}' >> graphsamtoolstempdir/pathwaybed.bed
+
+if [  $goinbam == "population" ];
+then
+    gopopone=$6
+    gopoptwo=$7
+    goout=$8
+    echo "Population mode or only display tracks"
+    python3 freqacq.py $gopopone graphsamtoolstempdir/pathwaybed.bed  >> graphsamtoolstempdir/population.frq.bed
+    python3 freqacq.py $gopoptwo graphsamtoolstempdir/pathwaybed.bed  >> graphsamtoolstempdir/population.frq.bed
+    rm -rf $goout
+    mkdir $goout
+    mv graphsamtoolstempdir/* $goout
+    exit 
+else
+goout=$6
+rm -rf $goout
+mkdir $goout
+fi
+
+samtools view $goinbam  ${gochr}:${gostart}-${goend}  -b -o ${goinbam}.${gochr}.${gostart}.${goend}.main.bam
+    
+cp ${goinbam}.${gochr}.${gostart}.${goend}.main.bam  graphsamtoolstempdir
+samtools index graphsamtoolstempdir/${goinbam}.${gochr}.${gostart}.${goend}.main.bam
+#Chr10Basmati1genomefa_57035_57127,52838-52841,10
+#Chr10Basmati1genomefa_62844_74162,58596-58598,10
+#cp ${goinbam}.${gochr}.${gostart}.${goend}.bam graphsamtoolstempdir
+
+for i in $(cat graphsamtoolstempdir/pathwaybed.bed | grep -v "main" | awk '{print $1":"$2"-"$3}')
+do
+cpoi=$i
+echo "$cpoi"
+samtools view $goinbam  $cpoi  -b -o $goinbam.$i.bam
+cp $goinbam.$i.bam  graphsamtoolstempdir
+samtools index graphsamtoolstempdir/$goinbam.$i.bam
+done
+
+bamToBed -i ${goinbam}.${gochr}.${gostart}.${goend}.main.bam >> graphsamtoolstempdir/reads.bed
+
+
+for i in $(cat graphsamtoolstempdir/pathwaybed.bed | grep -v "main"| awk '{print $1":"$2"-"$3}')
+do
+chrhead=$(echo "$i" | awk -F ":|-" '{print $1"_"$2"_"$3}')
+echo "$chrhead"          
+echo "bamToBed -i $goinbam.$i.bam > graphsamtoolstempdir/tempreads.bed"
+bamToBed -i $goinbam.$i.bam > graphsamtoolstempdir/tempreads.bed
+awk -v chrhead=${chrhead} '{print chrhead,$2,$3,$4,$5,$6}' graphsamtoolstempdir/tempreads.bed >> graphsamtoolstempdir/reads.bed
+rm $goinbam.$i.bam
+done
+
+fafile=$7
+if [  $fafile != "" ];
+then
+
+
+cat graphsamtoolstempdir/pathwaybed.bed | grep -v "main" | awk -v OFS="_" '{print $1,$2,$3}' >graphsamtoolstempdir/seqtempnameacq.txt
+seqkit grep -f graphsamtoolstempdir/seqtempnameacq.txt $fafile > graphsamtoolstempdir/snpreference.fa
+
+cat graphsamtoolstempdir/pathwaybed.bed | grep  "main" | awk '{print $1}' > graphsamtoolstempdir/seqtempnameacq.txt
+chrmainstart=$(cat graphsamtoolstempdir/pathwaybed.bed | grep  "main" | awk '{print $2}')
+chrmainend=$(cat graphsamtoolstempdir/pathwaybed.bed | grep  "main" | awk '{print $3}')
+#echo "seqkit grep -f graphsamtoolstempdir/seqtempnameacq.txt $fafile | seqkit subseq -r $chrmainstart:$chrmainend"
+seqkit grep -f graphsamtoolstempdir/seqtempnameacq.txt $fafile | seqkit subseq -r ${chrmainstart}:${chrmainend} >>graphsamtoolstempdir/snpreference.fa
+fi
+mv graphsamtoolstempdir/* $goout

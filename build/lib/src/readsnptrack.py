@@ -1,5 +1,3 @@
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 def readsnptrack(dicseqtrack,bamdir,dicreaddetailinf,writethereadnameornot):
     import pysam
     import os

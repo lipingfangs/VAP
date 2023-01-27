@@ -16,13 +16,20 @@ def readreadbed(readsbedfilename,dictracks,colors,readsdirection):
     linepointpairendx = []
     linepointpairendy = []
     dicreaddetailinf = {}
+    
+    readchrtemp  = ""
     for i in readsbedfileline:
+        readchr =  i.split()[0]
         readname = i.split()[3].split("/")[0]
+        if  readchrtemp  != readchr:
+            layend = {}
+            readchrtemp =  readchr 
         readdirection = i.split()[5]
         #print(readname)
         i = i.strip()
         #print(i)
         chrom = i.split()[0]
+   
 
         if chrom in dictracks.keys():
             

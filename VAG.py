@@ -253,7 +253,7 @@ def mainVAG(args):
     if drawonlylargesvinread ==1 and drawtype == "read":
         print("Only show the large insertion and deletion")
         phasefastafiledic = ""
-        dicseqtrack = snptrack(inindex+"/pathwaybeddraw.bed",dictracks,middlethetrackandread,phasefastafiledic,0)
+        dicseqtrack = snptrack(inindex+"/pathwaybeddraw.bed",dictracks,middlethetrackandread,phasefastafiledic,0,0)
         varitionblocklist =  readonlylargedeletion(dicseqtrack,inindex,dicreaddetailinf,writethereadnameornot)
 
         for i in  varitionblocklist:

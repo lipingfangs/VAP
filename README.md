@@ -141,10 +141,10 @@ python runVAG.py  --inindex <index generated from graphsamtools>  --drawtype cov
 python runVAG.py  --inindex <index generated from graphsamtools>  --pairend 1 --anntrack 1
 
 ```
-**Draw the distriubution of reads' coverage*
+**Draw the distriubution of coverage between population*
 
 ```
-python runVAG.py  --inindex <index generated from graphsamtools> --drawtype coverage 
+python runVAG.py  --inindex <index generated from graphsamtools> --drawtype population 
 ```
 
 ***Contacts and cite***

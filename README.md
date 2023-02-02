@@ -150,7 +150,7 @@ python runVAG.py  --inindex <index generated from graphsamtools>  --pairend 1 --
 **Draw the distriubution of coverage between population*
 
 ```
-python runVAG.py  --inindex <index generated from graphsamtools> --drawtype population 
+python runVAG.py  --inindex <index generated from graphsamtools> --drawtype populationfreq
 ```
 
 ***Contacts and cite***

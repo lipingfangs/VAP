@@ -7,16 +7,16 @@
 import sys
 import os
 
-frqfilename = sys.argv[1]
-pathwaybedfile = sys.argv[2]
-population = sys.argv[3]
+frqfilename = sys.argv[1].split(",")[0]
+pathwaybedfilename= sys.argv[2]
+populationmark = sys.argv[1].split(",")[1]
 
 frqfile= open(frqfilename,"r")
 frqfilelist =   frqfile.readlines()
 frqfile.close()
  
 dicfreq = {}
-for i in frqfilelist:
+for i in frqfilelist[1:]:
     dicfreq[i.split()[1]] = {}
     if i.split()[1] == "A":
         dicfreq[i.split()[1]]["A"] = 1-float(i.split()[4])

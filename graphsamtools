@@ -18,8 +18,8 @@ then
     gopoptwo=$7
     goout=$8
     echo "Population mode or only display tracks"
-    python3 freqacq.py $gopopone graphsamtoolstempdir/pathwaybed.bed  >> graphsamtoolstempdir/population.frq.bed
-    python3 freqacq.py $gopoptwo graphsamtoolstempdir/pathwaybed.bed  >> graphsamtoolstempdir/population.frq.bed
+    freqacq.py $gopopone graphsamtoolstempdir/pathwaybed.bed  >> graphsamtoolstempdir/population.frq.bed
+    freqacq.py $gopoptwo graphsamtoolstempdir/pathwaybed.bed  >> graphsamtoolstempdir/population.frq.bed
     rm -rf $goout
     mkdir $goout
     mv graphsamtoolstempdir/* $goout

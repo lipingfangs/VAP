@@ -8,7 +8,7 @@ population = sys.argv[3]
 frqfile= open(frqfilename,"r")
 frqfilelist =   frqfile.readlines()
 frqfile.close()
-population = 
+
 dicfreq = {}
 for i in frqfilelist:
     dicfreq[i.split()[1]] = {}

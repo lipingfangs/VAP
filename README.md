@@ -147,11 +147,20 @@ python runVAG.py  --inindex <index generated from graphsamtools>  --drawtype cov
 python runVAG.py  --inindex <index generated from graphsamtools>  --pairend 1 --anntrack 1
 
 ```
+ **Draw the distriubution of gene with .gff file (extraction based interval was realized)*
+
+```
+python runVAG.py  --inindex <index generated from graphsamtools> --gaingene 1 --gff <annotationfile.gff>
+```
+ 
 **Draw the distriubution of coverage between population*
 
 ```
 python runVAG.py  --inindex <index generated from graphsamtools> --drawtype populationfreq
 ```
+ 
+ **Draw the distriubution of coverage between population*
+
 
 ***Contacts and cite***
 

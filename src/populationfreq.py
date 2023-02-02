@@ -1,3 +1,6 @@
+import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
+
 def populationfrequencybed(coveragebedfilename,dictracks,mutilplesamplecolor,maintracklength,anncolor):
     coveragefile = open(coveragebedfilename,"r")
     coveragefileline =   coveragefile.readlines()

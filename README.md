@@ -16,7 +16,11 @@ php environment (for web), apache (for web)
 **Command tools*
 
 ```
+cd VAG
 python setup.py install
+cd script 
+export PATH=$PATH:$(pwd)
+chmod 700 *py
 ```
 
 **web-server*

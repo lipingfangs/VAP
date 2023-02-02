@@ -1,3 +1,10 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+# @name   : freqacq.py
+# @author : cat
+# @date   : 2023/2/2.
+
+
 import sys
 goin = sys.argv[1]
 #reflistfilename  = sys.argv[2]

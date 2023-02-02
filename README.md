@@ -44,6 +44,8 @@ graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam fi
 ```
 **Population mode*
 
+Please keep the script freqacq.py in the same index of graphsamtools
+
 ```
 graphsamtools <info.file> <chromosome> <start posistion> <end posistion> population <population 1>,<population 1 name> <population 2>,<population 2 name> <out dir>
 

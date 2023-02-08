@@ -17,6 +17,7 @@ php environment (for web), apache (for web)
 
 ```
 cd VAG
+chmod 700 graphsamtools
 python setup.py install
 cd script 
 export PATH=$PATH:$(pwd)

@@ -154,13 +154,13 @@ for i in genelistlnotonelevel:
             fourlist[0] = poi
             fourlist[2] = chrn
             fourlist[3] = "Forward"
-            fourlist[4] = j.replace(":",",")
+            fourlist[4] = directpro +","+j.split(":")[1]
             
         else:
             poi,chrn = sortlocus(vrdlist,"tail",reflist)
             directpro = vrdlist[0]
             fourlist[1] = poi 
-            fourlist[5] = j.replace(":",",")
+            fourlist[5] = directpro +","+j.split(":")[1]
             
     clist = i.split()[0].split("_")
     cl = 0

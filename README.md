@@ -33,7 +33,9 @@ All pages are packaged in the webserver index. You can directly copy the page to
 
 ```
 gfatools gfa2fa -s <graph>.GFA > <graph>.fa
-python script/getinf.py <graph>.fa > <info.file>  #error tend to be reported in this step which will not affect the user in next step if the info file was generated; That was attriubute to the compliacted branch. It will be fixed in next version.
+python script/getinf.py <graph>.fa > <info.file>  
+#The bug for complex region  was fixed in the lastest verion. no error should be reported in this stages.
+#error tend to be reported in this step which will not affect the user in next step if the info file was generated; That was attriubute to the compliacted branch. It will be fixed in next version.
 ```
 
 **Extraction of related main and branch paths based on a certain reference genome interval*

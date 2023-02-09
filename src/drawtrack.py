@@ -50,7 +50,7 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
                                             color="#8B658B"
                                            ,width=0.5,lw = 0.5) 
                 tempdirectionlist.append( directionrected)            
-            dictracks[maintrackname] = [mainbottom+0.5,maintrackstart,maintrackstart]
+            dictracks[maintrackname] = [mainbottom+0.5,maintrackstart,maintrackstart,mainlength]
         else:
             pathwaytrackname =  i.split()[0]+"_"+i.split()[1]+"_"+i.split()[2]
             print(pathwaytrackname)
@@ -114,45 +114,88 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
                                            ,width=0.5,lw = 0.5)                    
                 tempdirectionlist.append( directionrected) 
                 
-     
-            #pathway insertion location
-            if pathwaybottom >3:
-                mainwaysurface = 2.25
-            else:
-                mainwaysurface = 1.75
+            dictracks[pathwaytrackname] = [pathwaybottom+0.5,pathwaystart,pathwaystartinmain,pathwaylength]    
+            
+    #pathway insertion location    
+   
+    for i in readpathwaybedfileline[1:]:      
+        if  len(i.split()) < 6:
+            mainbottomtop = dictracks[readpathwaybedfileline[0].split()[0]][0]
+            pathwaytrackname =  i.split()[0]+"_"+i.split()[1]+"_"+i.split()[2]
+            pathwaybottomtop =  dictracks[pathwaytrackname][0]
+            pathwaystartinmainorg = int(i.split()[3].split("-")[1])
+            pathwayendinmainorg = int(i.split()[3].split("-")[2])
+            pathwaystartinmain = dictracks[pathwaytrackname][2]
+            pathwaylength = dictracks[pathwaytrackname][3]
+
+                    
             linepointx1 = [pathwaystartinmainorg ,pathwaystartinmain] #for the insert posistion
-            if pathwaybottom <2.75:
-                linepointy1 = [mainwaysurface  ,pathwaybottom+0.5]
-            else:
-                linepointy1 = [mainwaysurface  ,pathwaybottom]
+            linepointy1 = [mainbottomtop  ,pathwaybottomtop-0.25]              
             linepointx.append(linepointx1)
             linepointy.append(linepointy1)
-            left, bottom, width, height = (pathwaystartinmainorg, 1.95,mainlength/500, 0.7)
+            left, bottom, width, height = (pathwaystartinmainorg, mainbottomtop-0.55,mainlength/1000, 0.7)
             pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
-                                    fill=True,
-                                    color="red",
-                                   linewidth=2) 
+                                        fill=True,
+                                        color="red",
+                                       linewidth=2) 
             pathwaytracks.append(pathwayrected) 
-            
+                
+               
             linepointx2 = [pathwayendinmainorg,pathwaystartinmain+pathwaylength] 
-            if pathwaybottom <4.75:
-                linepointy2 = [mainwaysurface  ,pathwaybottom+0.5]
-            else:
-                linepointy2 = [mainwaysurface  ,pathwaybottom]            
-            
+            linepointy2 = [mainbottomtop  ,pathwaybottomtop-0.25]         
             linepointx.append(linepointx2)
             linepointy.append(linepointy2)
-            left, bottom, width, height = (pathwayendinmainorg, 1.95,mainlength/500, 0.7)
+            left, bottom, width, height = (pathwayendinmainorg, 1.95,mainlength/1000, 0.7)
             pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
-                                    fill=True,
-                                    color="red",
-                                   linewidth=2) 
+                                        fill=True,
+                                        color="red",
+                                       linewidth=2) 
             pathwaytracks.append(pathwayrected) 
+                
+        else:
+            pathwaytrackname =  i.split()[0]+"_"+i.split()[1]+"_"+i.split()[2]
+            pathwaybottomtop =  dictracks[pathwaytrackname][0]
+            pathwaystartinmain = dictracks[pathwaytrackname][2]
+            pathwaylength = dictracks[pathwaytrackname][3]
             
-            dictracks[pathwaytrackname] = [pathwaybottom+0.5,pathwaystart,pathwaystartinmain]
+            lastbranchstartname = i.split()[5]
+            lastbranchstartbottomtop = dictracks[lastbranchstartname][0]
+            lastbranchstartinmain = dictracks[lastbranchstartname][2]
+            lastbranchstartlengthtoadd = int(i.split()[6])-int(lastbranchstartname.split("_")[1])
+            lastbranchstartinmainorg = lastbranchstartinmain + lastbranchstartlengthtoadd
+        
+            lastbranchendname = i.split()[7]
+            lastbranchendbottomtop = dictracks[lastbranchendname][0]
+            lastbranchendinmain = dictracks[lastbranchendname][2]
+            lastbranchendlengthtoadd = int(i.split()[8])-int(lastbranchendname.split("_")[1])
+            lastbranchendinmainorg = lastbranchendinmain + lastbranchendlengthtoadd
+             
+            
+            linepointx1 = [lastbranchstartinmainorg ,pathwaystartinmain] #for the insert posistion
+            linepointy1 = [lastbranchstartbottomtop  ,pathwaybottomtop-0.25]    
+            linepointx.append(linepointx1)
+            linepointy.append(linepointy1)
+            
+            left, bottom, width, height = (lastbranchstartinmainorg, lastbranchstartbottomtop-0.55,mainlength/1000, 0.7)
+            pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
+                                        fill=True,
+                                        color="red",
+                                       linewidth=2) 
+            pathwaytracks.append(pathwayrected) 
+                
+               
+            linepointx2 = [lastbranchendinmainorg,pathwaystartinmain+pathwaylength] 
+            linepointy2 = [lastbranchendbottomtop  ,pathwaybottomtop-0.25]         
+            linepointx.append(linepointx2)
+            linepointy.append(linepointy2)
+            
+            left, bottom, width, height = (lastbranchendinmainorg, lastbranchstartbottomtop-0.55,mainlength/500, 0.7)
+            pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
+                                        fill=True,
+                                        color="red",
+                                       linewidth=2) 
+            pathwaytracks.append(pathwayrected)             
+       
     print(len(tempdirectionlist))   
     pathwaytracks = pathwaytracks+tempdirectionlist
     return sizetrackx, sizetracky, maintrack, pathwaytracks, linepointx, linepointy, dictracks,dicpathwaybottom,mainlength
-
-
-        

@@ -10,7 +10,7 @@ mkdir graphsamtoolstempdir
 echo "${gochr} ${gostart} ${goend} main"
 
 echo "${gochr} ${gostart} ${goend} main Forward"| awk -v OFS="\t" '{print $1,$2,$3,$4,$NF}'  > graphsamtoolstempdir/pathwaybed.bed
-cat $goininf | awk -v OFS="\t" -v gochr=${gochr} -v gostart=${gostart} -v goend=${goend} -F ",|-" '{if($6==gochr&&$4<goend&&$4>gostart){print $1,$2,$3,$6"-"$4"-"$5,$7}}' >> graphsamtoolstempdir/pathwaybed.bed
+cat $goininf | awk -v OFS="\t" -v gochr=${gochr} -v gostart=${gostart} -v goend=${goend} -F ",|-" '{if($6==gochr&&$4<goend&&$4>gostart){print $1,$2,$3,$6"-"$4"-"$5,$7,$8,$9,$10,$11}}' >> graphsamtoolstempdir/pathwaybed.bed
 
 if [  $goinbam == "population" ];
 then

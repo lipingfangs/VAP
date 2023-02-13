@@ -24,6 +24,8 @@ from src.sortreadnovel import *
 from src.readonlylargedeletion import *
 from src.goonefasta import *
 from src.gaincoverag import *
+from src.populationfrequencybedwithline import *
+from src.drawline import *
 
 #input of file and dir
 def mainVAG(args):

@@ -66,7 +66,7 @@ def mainVAG(args):
     trackdireactionornot = args.td
     readsdirection = args.rd
     coveragesteplength = args.coveragesteplength
-    drawpopultionwithline = args.drawpopultionwithline
+    drawpopultionwithline = args.popline
     
     #color
     drawtrackcolorlist = args.trackcolor.split(",")

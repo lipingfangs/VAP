@@ -199,9 +199,15 @@ def mainVAG(args):
             plt.gca().add_patch(i)
 
     if drawtype == "populationfreq":
-        populationfrequencybedrectedlist,samplesreadbottomtemplist =  populationfrequencybed(inindex+"/population.frq.bed",dictracks,mutilplesamplecolor,mainlength,anncolor)
-        for i in   populationfrequencybedrectedlist:
-            plt.gca().add_patch(i)  
+        if drawpopultionwithline == 1:
+            populationfrequencybedrectedlist,samplesreadbottomtemplist =  populationfrequencybedwithline(inindex+"/population.frq.bed",dictracks,mutilplesamplecolor,mainlength,anncolor)
+            for i in   populationfrequencybedrectedlist:
+                plt.gca().add_patch(i) 
+        else:
+            populationfrequencybedrectedlist,samplesreadbottomtemplist =  populationfrequencybed(inindex+"/population.frq.bed",dictracks,mutilplesamplecolor,mainlength,anncolor)
+            for i in   populationfrequencybedrectedlist:
+                plt.gca().add_patch(i)  
+            
         if   legend  ==1:
             for i in range(len(samplesreadbottomtemplist)):    
                # print(mutilplesamplecolor)

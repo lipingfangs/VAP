@@ -42,6 +42,7 @@ def parse_args():
     parser.add_argument('--anncolor', type=str,default="#D02090", help="Read colors default:#D02090")
     parser.add_argument('--genecolor', type=str,default="black", help="Gene colors default:black") 
     parser.add_argument('--mutilplesamplecolor', type=str,default="#FFDEAD,#FFA54F", help="Mutilple sample colors  default:#FFDEAD,#FFA54F")
+    parser.add_argument('--popline', type=int,default=0, help="draw the population distribution with line plot")
     
     #for the size, type and label of picture
     parser.add_argument('--sx', type=int,default=14, help="Size of X")
@@ -51,6 +52,7 @@ def parse_args():
     parser.add_argument('--ppi', type=int,default=150, help="The dpi of your image")
     parser.add_argument('--imtype', type=str,default="png", help="The image type of output;default:png; Support:pdf,svg,jpg")
     parser.add_argument('--dw', type=int,default=1, help="web (.html output or not)")
+    
     args = parser.parse_args() 
     return args
 

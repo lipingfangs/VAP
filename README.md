@@ -40,6 +40,8 @@ python script/getinf.py <graph>.fa > <info.file>
 
 **Extraction of related main and branch paths based on a certain reference genome interval*
 
+The bam file can be generated from vg giraffe or other similar software, which should be sorted with samtools sort and build the index.
+
 ```
 graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam file> <out dir>
 ```

@@ -18,6 +18,7 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
     dicpathwaybottom = {}
     tempdirectionlist = []
     branchdistribution = []
+    insertbarlength = 2
     for i in readpathwaybedfileline:
         i = i.strip()
         probe = i.split()[3]
@@ -26,6 +27,9 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
             maintrackstart =  int(i.split()[1])
             maintrackend = int(i.split()[2])
             mainlength = maintrackend- maintrackstart
+                
+                
+                 
             
             sizetrackx = [[maintrackstart,maintrackend],[maintrackstart,maintrackstart]] #the page size placeholder
             sizetracky = [[0,0],[0,10]]
@@ -133,7 +137,7 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
             linepointy1 = [mainbottomtop  ,pathwaybottomtop-0.25]              
             linepointx.append(linepointx1)
             linepointy.append(linepointy1)
-            left, bottom, width, height = (pathwaystartinmainorg, mainbottomtop-0.55,mainlength/1000, 0.7)
+            left, bottom, width, height = (pathwaystartinmainorg, mainbottomtop-0.55,insertbarlength, 0.7)
             pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
                                         fill=True,
                                         color="red",
@@ -145,7 +149,7 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
             linepointy2 = [mainbottomtop  ,pathwaybottomtop-0.25]         
             linepointx.append(linepointx2)
             linepointy.append(linepointy2)
-            left, bottom, width, height = (pathwayendinmainorg, 1.95,mainlength/1000, 0.7)
+            left, bottom, width, height = (pathwayendinmainorg, 1.95,insertbarlength, 0.7)
             pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
                                         fill=True,
                                         color="red",
@@ -157,17 +161,30 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
             pathwaybottomtop =  dictracks[pathwaytrackname][0]
             pathwaystartinmain = dictracks[pathwaytrackname][2]
             pathwaylength = dictracks[pathwaytrackname][3]
-            
-            lastbranchstartname = i.split()[5]
+            if i.split()[5].find(":")==-1:
+                lastbranchstartname = i.split()[5]
+            else:
+                lastbranchstartname= i.split()[5].split(":")[0]# +"_"+str(maintrackstart)            
+            #lastbranchstartname = i.split()[5]
             lastbranchstartbottomtop = dictracks[lastbranchstartname][0]
             lastbranchstartinmain = dictracks[lastbranchstartname][2]
-            lastbranchstartlengthtoadd = int(i.split()[6])-int(lastbranchstartname.split("_")[1])
+            if i.split()[5].find(":")==-1:
+                lastbranchstartlengthtoadd = int(i.split()[6])-int(lastbranchstartname.split("_")[1])
+            else:
+                lastbranchstartlengthtoadd = int(i.split()[6])-int(maintrackstart)
             lastbranchstartinmainorg = lastbranchstartinmain + lastbranchstartlengthtoadd
-        
-            lastbranchendname = i.split()[7]
+            
+            if i.split()[7].find(":")==-1:
+                lastbranchendname = i.split()[7]
+            else:
+                lastbranchendname = i.split()[7].split(":")[0]#+"_"+str(maintrackstart)
+                
             lastbranchendbottomtop = dictracks[lastbranchendname][0]
             lastbranchendinmain = dictracks[lastbranchendname][2]
-            lastbranchendlengthtoadd = int(i.split()[8])-int(lastbranchendname.split("_")[1])
+            if i.split()[7].find(":")==-1:
+                lastbranchendlengthtoadd = int(i.split()[8])-int(lastbranchendname.split("_")[1])
+            else:
+                lastbranchendlengthtoadd = int(i.split()[8])-int(maintrackstart)
             lastbranchendinmainorg = lastbranchendinmain + lastbranchendlengthtoadd
              
             
@@ -176,7 +193,7 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
             linepointx.append(linepointx1)
             linepointy.append(linepointy1)
             
-            left, bottom, width, height = (lastbranchstartinmainorg, lastbranchstartbottomtop-0.55,mainlength/1000, 0.7)
+            left, bottom, width, height = (lastbranchstartinmainorg, lastbranchstartbottomtop-0.55,insertbarlength, 0.7)
             pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
                                         fill=True,
                                         color="red",
@@ -189,7 +206,7 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
             linepointx.append(linepointx2)
             linepointy.append(linepointy2)
             
-            left, bottom, width, height = (lastbranchendinmainorg, lastbranchstartbottomtop-0.55,mainlength/500, 0.7)
+            left, bottom, width, height = (lastbranchendinmainorg, lastbranchstartbottomtop-0.55,insertbarlength, 0.7)
             pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
                                         fill=True,
                                         color="red",

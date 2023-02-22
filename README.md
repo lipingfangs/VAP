@@ -52,10 +52,11 @@ graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam fi
  
 ```
 **Only display the Graph*
-```
-Large interval scales are supported(eg. a chromosome)
-graphsamtools <info.file>  <chromosome> <start posistion> <end posistion> onlytrack <out dir>
 
+Large interval scales are supported(eg. a chromosome)
+
+```
+graphsamtools <info.file>  <chromosome> <start posistion> <end posistion> onlytrack <out dir>
 ```
 
 **Population mode*

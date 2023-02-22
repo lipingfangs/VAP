@@ -51,6 +51,13 @@ In snp mode within 2000bp:
 graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam file> <out dir> <graph>.fa
  
 ```
+**Only display the Graph*
+```
+Large interval scales are supported(eg. a chromosome)
+graphsamtools <info.file>  <chromosome> <start posistion> <end posistion> onlytrack <out dir>
+
+```
+
 **Population mode*
 
 Please keep the script freqacq.py in the same index of graphsamtools
@@ -129,6 +136,12 @@ optional arguments:
 ```
 ***Command example***
 
+**Only display the graph*
+```
+
+python  runVAG.py --inindex   <index generated from graphsamtools> --drawtype onlytrack
+
+```
 **Draw the alignment of read*
 
 ```

@@ -139,24 +139,18 @@ optional arguments:
 
 **Only display the graph*
 ```
-
 python  runVAG.py --inindex   <index generated from graphsamtools> --drawtype onlytrack
-
 ```
 **Draw the alignment of read*
 
 ```
-
 python runVAG.py  --inindex <index generated from graphsamtools> 
-
 ```
 
 **Draw the coverage of reads alignment*
 
 ```
-
 python runVAG.py  --inindex <index generated from graphsamtools>  --drawtype coverage
-
 ```
  
  **Draw the  alignment with Mate pair information and predict the reliable segements(nodes)*

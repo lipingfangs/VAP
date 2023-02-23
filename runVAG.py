@@ -32,7 +32,7 @@ def parse_args():
     parser.add_argument('--snp', type=int,default=1, help="draw the snp information or not (interval<2000bp)") 
     parser.add_argument('--onlysv', type=int,default=1, help="Only display the SV large than thersold (default for >5bp) or not") 
     parser.add_argument('--onlysvthersold', type=int,default=5, help="Thersold of length only display the SV large than thersold  or not")
-    parser.add_argument('--coveragesteplength', type=int,default=1, help="Length of step with coverage (default for 100bp)") 
+    parser.add_argument('--coveragesteplength', type=int,default=100, help="Length of step with coverage (default for 100bp)") 
     #for color and displayed
     parser.add_argument('--middle', type=int,default=1, help="Middle the track and read, default yes (1) ")
     parser.add_argument('--trackcolor', type=str,default="#CDCD00,#00BFFF", help="Track colors including main track and  the branches default:#CDCD00,#00BFFF ")

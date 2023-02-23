@@ -157,6 +157,7 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
             pathwaytracks.append(pathwayrected) 
                 
         else:
+            
             pathwaytrackname =  i.split()[0]+"_"+i.split()[1]+"_"+i.split()[2]
             pathwaybottomtop =  dictracks[pathwaytrackname][0]
             pathwaystartinmain = dictracks[pathwaytrackname][2]
@@ -166,53 +167,54 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
             else:
                 lastbranchstartname= i.split()[5].split(":")[0]# +"_"+str(maintrackstart)            
             #lastbranchstartname = i.split()[5]
-            lastbranchstartbottomtop = dictracks[lastbranchstartname][0]
-            lastbranchstartinmain = dictracks[lastbranchstartname][2]
             if i.split()[5].find(":")==-1:
                 lastbranchstartlengthtoadd = int(i.split()[6])-int(lastbranchstartname.split("_")[1])
             else:
                 lastbranchstartlengthtoadd = int(i.split()[6])-int(maintrackstart)
-            lastbranchstartinmainorg = lastbranchstartinmain + lastbranchstartlengthtoadd
-            
+                       
             if i.split()[7].find(":")==-1:
                 lastbranchendname = i.split()[7]
             else:
                 lastbranchendname = i.split()[7].split(":")[0]#+"_"+str(maintrackstart)
-                
-            lastbranchendbottomtop = dictracks[lastbranchendname][0]
-            lastbranchendinmain = dictracks[lastbranchendname][2]
-            if i.split()[7].find(":")==-1:
-                lastbranchendlengthtoadd = int(i.split()[8])-int(lastbranchendname.split("_")[1])
-            else:
-                lastbranchendlengthtoadd = int(i.split()[8])-int(maintrackstart)
-            lastbranchendinmainorg = lastbranchendinmain + lastbranchendlengthtoadd
-             
-            
-            linepointx1 = [lastbranchstartinmainorg ,pathwaystartinmain] #for the insert posistion
-            linepointy1 = [lastbranchstartbottomtop  ,pathwaybottomtop-0.25]    
-            linepointx.append(linepointx1)
-            linepointy.append(linepointy1)
-            
-            left, bottom, width, height = (lastbranchstartinmainorg, lastbranchstartbottomtop-0.55,insertbarlength, 0.7)
-            pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
-                                        fill=True,
-                                        color="red",
-                                       linewidth=2) 
-            pathwaytracks.append(pathwayrected) 
-                
-               
-            linepointx2 = [lastbranchendinmainorg,pathwaystartinmain+pathwaylength] 
-            linepointy2 = [lastbranchendbottomtop  ,pathwaybottomtop-0.25]         
-            linepointx.append(linepointx2)
-            linepointy.append(linepointy2)
-            
-            left, bottom, width, height = (lastbranchendinmainorg, lastbranchstartbottomtop-0.55,insertbarlength, 0.7)
-            pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
-                                        fill=True,
-                                        color="red",
-                                       linewidth=2) 
-            pathwaytracks.append(pathwayrected)             
-       
+            if  lastbranchendname in  list(dictracks.keys()) and lastbranchstartname in list(dictracks.keys()):
+                lastbranchstartbottomtop = dictracks[lastbranchstartname][0]
+                lastbranchstartinmain = dictracks[lastbranchstartname][2]
+                lastbranchstartinmainorg = lastbranchstartinmain + lastbranchstartlengthtoadd    
+                lastbranchendbottomtop = dictracks[lastbranchendname][0]
+                lastbranchendinmain = dictracks[lastbranchendname][2]
+
+                if i.split()[7].find(":")==-1:
+                    lastbranchendlengthtoadd = int(i.split()[8])-int(lastbranchendname.split("_")[1])
+                else:
+                    lastbranchendlengthtoadd = int(i.split()[8])-int(maintrackstart)
+                lastbranchendinmainorg = lastbranchendinmain + lastbranchendlengthtoadd
+
+
+                linepointx1 = [lastbranchstartinmainorg ,pathwaystartinmain] #for the insert posistion
+                linepointy1 = [lastbranchstartbottomtop  ,pathwaybottomtop-0.25]    
+                linepointx.append(linepointx1)
+                linepointy.append(linepointy1)
+
+                left, bottom, width, height = (lastbranchstartinmainorg, lastbranchstartbottomtop-0.55,insertbarlength, 0.7)
+                pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
+                                            fill=True,
+                                            color="red",
+                                           linewidth=2) 
+                pathwaytracks.append(pathwayrected) 
+
+
+                linepointx2 = [lastbranchendinmainorg,pathwaystartinmain+pathwaylength] 
+                linepointy2 = [lastbranchendbottomtop  ,pathwaybottomtop-0.25]         
+                linepointx.append(linepointx2)
+                linepointy.append(linepointy2)
+
+                left, bottom, width, height = (lastbranchendinmainorg, lastbranchstartbottomtop-0.55,insertbarlength, 0.7)
+                pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
+                                            fill=True,
+                                            color="red",
+                                           linewidth=2) 
+                pathwaytracks.append(pathwayrected)             
+
     print(len(tempdirectionlist))   
     pathwaytracks = pathwaytracks+tempdirectionlist
     return sizetrackx, sizetracky, maintrack, pathwaytracks, linepointx, linepointy, dictracks,dicpathwaybottom,mainlength

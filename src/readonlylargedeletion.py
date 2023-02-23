@@ -16,6 +16,7 @@ def readonlylargedeletion(dicseqtrack,bamdir,dicreaddetailinf,writethereadnameor
                     else:
                         chrpoiadd = i.split(":")[1].split(".")[0].split("-")
                         readchr = j.reference_name +"_" +chrpoiadd[0]+"_"+chrpoiadd[1]
+                
                     readmarker = j.cigartuples
                     readseq = j.seq
                     if j.isize > 0:
@@ -28,7 +29,7 @@ def readonlylargedeletion(dicseqtrack,bamdir,dicreaddetailinf,writethereadnameor
                     maplength =0
                     scanedlength = 0
                     refjumpstep = 0
-                    if  readname in list(dicreaddetailinf.keys()):
+                    if  readname in list(dicreaddetailinf.keys()) and readchr in list(dicseqtrack.keys()) :
                         readstartpoint = j.pos+1
                         #print(readseq,readstartpoint)
                         #dicseqone = {}
@@ -92,5 +93,3 @@ def readonlylargedeletion(dicseqtrack,bamdir,dicreaddetailinf,writethereadnameor
                                 
     return varitionblocklist
            
-                 
-                                        

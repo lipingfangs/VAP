@@ -21,6 +21,56 @@ then
 fi
 
 
+
+if [  $goinbam == "mutiplesamples" ];
+then
+    bamlist=$7
+    for bamfile in $(cat $bamlist)
+    do
+        echo "$bamfile, nowbamfile"
+        samtools view $bamfile  ${gochr}:${gostart}-${goend}  -b -o ${bamfile}.${gochr}.${gostart}.${goend}.main.bam
+
+        cp ${bamfile}.${gochr}.${gostart}.${goend}.main.bam  graphsamtoolstempdir
+        samtools index graphsamtoolstempdir/${bamfile}.${gochr}.${gostart}.${goend}.main.bam
+        #Chr10Basmati1genomefa_57035_57127,52838-52841,10
+        #Chr10Basmati1genomefa_62844_74162,58596-58598,10
+        #cp ${bamfile}.${gochr}.${gostart}.${goend}.bam graphsamtoolstempdir
+
+        for i in $(cat graphsamtoolstempdir/pathwaybed.bed | grep -v "main" | awk '{print $1":"$2"-"$3}')
+        do
+        cpoi=$i
+        echo "$cpoi"
+        samtools view $bamfile  $cpoi  -b -o $bamfile.$i.bam
+        cp $bamfile.$i.bam  graphsamtoolstempdir
+        samtools index graphsamtoolstempdir/$bamfile.$i.bam
+        done
+
+        bamToBed -i ${bamfile}.${gochr}.${gostart}.${goend}.main.bam >> graphsamtoolstempdir/reads.bed
+
+
+        for i in $(cat graphsamtoolstempdir/pathwaybed.bed | grep -v "main"| awk '{print $1":"$2"-"$3}')
+        do
+        chrhead=$(echo "$i" | awk -F ":|-" '{print $1"_"$2"_"$3}')
+        echo "$chrhead"          
+        echo "bamToBed -i $bamfile.$i.bam > graphsamtoolstempdir/tempreads.bed"
+        bamToBed -i $bamfile.$i.bam > graphsamtoolstempdir/tempreads.bed
+        awk -v chrhead=${chrhead} '{print chrhead,$2,$3,$4,$5,$6}' graphsamtoolstempdir/tempreads.bed >> graphsamtoolstempdir/reads.bed
+        rm $bamfile.$i.bam
+        done  
+    done
+    goout=$6
+    rm -rf $goout
+    mkdir $goout
+    
+    mv graphsamtoolstempdir/* $goout
+    exit 
+else
+goout=$6
+rm -rf $goout
+mkdir $goout
+fi
+
+
 if [  $goinbam == "population" ];
 then
     gopopone=$6

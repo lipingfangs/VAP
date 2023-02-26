@@ -195,11 +195,38 @@ def mainVAG(args):
         coveragerectedlist = readcoveragebed(inindex+"/pathway.regions.bed",dictracks,coveragecolor)
         for i in  coveragerectedlist:
             plt.gca().add_patch(i)
-
+            
     if drawtype == "mutiplesamples":
-        mutiplesamplescoveragerectedlist =  mutilplesamplecoveragebed(inindex+"/mutiltestdepth.regions.bed",dictracks,mutilplesamplecolor)
+        gaincoverage(inindex+"/pathwaybeddraw.bed",inindex+"/pathwaybeddraw.window.bed",coveragesteplength )
+        os.system("for i in $(ls "+inindex+" | grep 'bam'|grep -v 'bai' | grep -v 'mosdepth' | grep -v 'region'); do mosdepth -b "+inindex+"/pathwaybeddraw.window.bed -n -t 12 -i 194 -Q 20 "+inindex+"/pathway.depth.$i "+inindex+"/$i; done" )
+        listdirbam = os.listdir(inindex)
+        listbam = []
+        for i in listdirbam:
+            if i.find("bam") != -1 and i.find("pathway") == -1:
+                tempbamname = i.split(".bam")[0]
+                if tempbamname not in listbam:
+                    listbam.append(tempbamname)
+        for i in listbam:
+            os.system("cat "+inindex+"/pathway.depth."+i+"*gz > "+inindex+"/"+i+"pathway.regions.bed.gz" )
+            os.system("gzip -d "+inindex+"/"+i+"pathway.regions.bed.gz" )
+            
+        for i in listbam:
+            print("cat "+inindex+"/"+i+"pathway.regions.bed | awk '{print $0,"+i+"}' >>"+inindex+ "/pathway.regions.bed")
+            os.system("cat "+inindex+"/"+i+"pathway.regions.bed | awk '{print $0,"+i+"}' >>"+inindex+ "/pathway.regions.bed" )
+            
+        mutiplesamplescoveragerectedlist =  mutilplesamplecoveragebed(inindex+"/pathway.regions.bed",dictracks,mutilplesamplecolor)
+        
         for i in   mutiplesamplescoveragerectedlist:
             plt.gca().add_patch(i)
+        countcolor = 0    
+        for i in listbam:
+            
+            #os.system("cat "+inindex+"/"+i+"pathway.regions.bed | awk '{print $0,"+i+"}' >> pathway.regions.bed" )
+            legendblockmain = legendblock(mutilplesamplecolor[countcolor],i,sizexzero,sizeyzero,legendheight,sizexcoff/2,laynum)
+            sizexzero = sizexzero + sizexcoff
+            countcolor  +=1
+            plt.gca().add_patch(legendblockmain)
+ 
 
     if drawtype == "populationfreq":
         if drawpopultionwithline == 1:
@@ -274,5 +301,3 @@ def mainVAG(args):
 
     if displayonline == 1:
         save_html(fig,outimage+"."+"html")
-
-#mpld3.enable_notebook()  #jupyter notebook draw html

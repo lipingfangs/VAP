@@ -2,7 +2,7 @@
 A programme for visualization of reads alignment and path navigation in graphical pan-genome, The mapping stage of read to graph can be processed by vg giraffe/map or other similar softwares. The .bam file generated from the alignment was the file of input in VAG.
 ![main](https://user-images.githubusercontent.com/46209789/213981873-bc18ff74-93ff-4001-8ecd-3dfc1ed5992c.jpg)
 
-##Version in Window Os was online, which can be downloaded in https://ricegenomichjx.xiaomy.net/VAG/VAGallgui.exe
+##Version in Window Os was online, which can be downloaded in https://ricegenomichjx.xiaomy.net/VAG/VAGallgui.exe.
 
 
 ***Install***

@@ -43,7 +43,7 @@ def parse_args():
     parser.add_argument('--genecolor', type=str,default="black", help="Gene colors default:black") 
     parser.add_argument('--mutilplesamplecolor', type=str,default="#FFDEAD,#FFA54F", help="Mutilple sample colors  default:#FFDEAD,#FFA54F")
     parser.add_argument('--popline', type=int,default=0, help="draw the population distribution with line plot")
-    
+    parser.add_argument('--samplesline', type=int,default=0, help="draw the coverages of samples with line plot")
     #for the size, type and label of picture
     parser.add_argument('--sx', type=int,default=14, help="Size of X")
     parser.add_argument('--sy', type=int,default=4, help="Size of Y")

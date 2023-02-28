@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 def mutilplesamplecoveragebed(coveragebedfilename,dictracks,mutilplesamplecolor):
     coveragefile = open(coveragebedfilename,"r")
     coveragefileline =   coveragefile.readlines()
@@ -8,6 +10,7 @@ def mutilplesamplecoveragebed(coveragebedfilename,dictracks,mutilplesamplecolor)
     samplesreadbottomtemplist =[]
     countsample = 0
     donerunsample = []
+    coffcallist = []
     for i in coveragefileline:
         #print(i)
         samplename = i.split()[5]
@@ -15,7 +18,10 @@ def mutilplesamplecoveragebed(coveragebedfilename,dictracks,mutilplesamplecolor)
             samplesreadbottomtemplist.append(samplename)
             dicsamplesreadbottomtemp[samplename] =  [countsample,mutilplesamplecolor[countsample]]
             countsample += 1
-            
+        coffcallist.append(float(i.split()[4]))
+        
+                           
+    coff = max(coffcallist) +1       
     for j in dicsamplesreadbottomtemp.keys():    
         print(j)
         for i in coveragefileline:
@@ -30,7 +36,7 @@ def mutilplesamplecoveragebed(coveragebedfilename,dictracks,mutilplesamplecolor)
             readbottomtemp = dictracks[chrom][0] + 0.1 + dicsamplesreadbottomtemp[j][0]
             readstart  =int(i.split()[1]) 
             readend =int(i.split()[2])
-            coveragescores =  float(i.split()[4]) *0.005
+            coveragescores =  float(i.split()[4]) /coff
             readforpathpointlength = readstart - dictracks[chrom][1] 
             readfordrawstart= dictracks[chrom][2] + readforpathpointlength 
             readlength = readend - readstart

@@ -26,6 +26,7 @@ from src.goonefasta import *
 from src.gaincoverag import *
 from src.populationfrequencybedwithline import *
 from src.drawline import *
+from src.mutilplesamplecoveragewithline import *
 
 #input of file and dir
 def mainVAG(args):
@@ -69,7 +70,7 @@ def mainVAG(args):
     readsdirection = args.rd
     coveragesteplength = args.coveragesteplength
     drawpopultionwithline = args.popline
-    
+    drawmutiplesampleswithline = args.samplesline
     #color
     drawtrackcolorlist = args.trackcolor.split(",")
     drawtrackcolor = [drawtrackcolorlist[0],drawtrackcolorlist[1]]
@@ -201,6 +202,7 @@ def mainVAG(args):
         os.system("for i in $(ls "+inindex+" | grep 'bam'|grep -v 'bai' | grep -v 'mosdepth' | grep -v 'region'); do mosdepth -b "+inindex+"/pathwaybeddraw.window.bed -n -t 12 -i 194 -Q 20 "+inindex+"/pathway.depth.$i "+inindex+"/$i; done" )
         listdirbam = os.listdir(inindex)
         listbam = []
+       
         for i in listdirbam:
             if i.find("bam") != -1 and i.find("pathway") == -1:
                 tempbamname = i.split(".bam")[0]
@@ -213,12 +215,16 @@ def mainVAG(args):
         for i in listbam:
             print("cat "+inindex+"/"+i+"pathway.regions.bed | awk '{print $0,"+i+"}' >>"+inindex+ "/pathway.regions.bed")
             os.system("cat "+inindex+"/"+i+"pathway.regions.bed | awk '{print $0,"+i+"}' >>"+inindex+ "/pathway.regions.bed" )
-            
-        mutiplesamplescoveragerectedlist =  mutilplesamplecoveragebed(inindex+"/pathway.regions.bed",dictracks,mutilplesamplecolor)
+        if len(listbam)>2 or drawmutiplesampleswithline ==1:
+            mutiplesamplescoveragerectedlist,samplesreadbottomtemplist =  mutilplesamplecoveragewithline(inindex+"/pathway.regions.bed",dictracks,mutilplesamplecolor,mainlength,anncolor)
+        else:
+            mutiplesamplescoveragerectedlist =  mutilplesamplecoveragebed(inindex+"/pathway.regions.bed",dictracks,mutilplesamplecolor)
         
         for i in   mutiplesamplescoveragerectedlist:
             plt.gca().add_patch(i)
         countcolor = 0    
+        
+        
         for i in listbam:
             
             #os.system("cat "+inindex+"/"+i+"pathway.regions.bed | awk '{print $0,"+i+"}' >> pathway.regions.bed" )

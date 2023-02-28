@@ -22,7 +22,7 @@ fi
 
 
 
-if [  $goinbam == "mutsamples" ];
+if [  $goinbam == "mutiplesamples" ];
 then
     bamlist=$7
     for bamfile in $(cat $bamlist)

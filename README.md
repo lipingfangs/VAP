@@ -4,6 +4,8 @@ A programme for visualization of reads alignment and path navigation in graphica
 
 ##Version in Window Os was online, which can be downloaded in https://ricegenomichjx.xiaomy.net/VAG/VAGallgui.exe.
 
+##The detailed description and usages can be found in documents in https://lipingfangs.github.io/VAGreadme.html. 
+
 
 ***Install***
 

@@ -13,7 +13,7 @@ A programme for visualization of reads alignment and path navigation in graphica
 
 Pysam, matplotlib, mpld3
 
-Samtools, Bamtools, mosdepth(to display reads coverage), seqkit (to display snp)
+Samtools, Bedtools, mosdepth(to display reads coverage), seqkit (to display snp)
 
 php environment (for web), apache (for web)
 

@@ -8,6 +8,6 @@ for i in modulelist[:-1]:
     modulelistclean.append("src/"+i)
     
 setuptools.setup(
-    name='VAG',
+    name='VAP',
     py_modules=modulelistclean 
 )

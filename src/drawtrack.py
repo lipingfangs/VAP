@@ -41,19 +41,19 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
             maintrack = mainrected
             maindirection = i.split()[-1]
             #direction of maintrack
-            if trackdireactionornot ==1:
-                if maindirection == "Forward":
-                    directionrected=mpatches.Arrow(left,bottom,width,0, 
-                                            fill=True,
-                                            color="#8B7500"
-                                           ,width=0.5,lw = 0.5) 
+           # if trackdireactionornot ==1:
+               # if maindirection == "Forward":
+                  #  directionrected=mpatches.Arrow(left,bottom,width,0, 
+                                        #    fill=True,
+                                         #   color="#8B7500"
+                                          # ,width=0.5,lw = 0.5) 
                     
-                elif maindirection == "Reverse":
-                    directionrected=mpatches.Arrow(left,bottom,-width,0, 
-                                            fill=True,
-                                            color="#8B658B"
-                                           ,width=0.5,lw = 0.5) 
-                tempdirectionlist.append( directionrected)            
+              #  elif maindirection == "Reverse":
+               #     directionrected=mpatches.Arrow(left,bottom,-width,0, 
+                #                            fill=True,
+                 #                           color="#8B658B"
+                  #                         ,width=0.5,lw = 0.5) 
+                #tempdirectionlist.append( directionrected)            
             dictracks[maintrackname] = [mainbottom+0.5,maintrackstart,maintrackstart,mainlength]
         else:
             pathwaytrackname =  i.split()[0]+"_"+i.split()[1]+"_"+i.split()[2]
@@ -106,16 +106,16 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
             trackdirection = i.split()[-1]
             
             if trackdireactionornot ==1:
-                if trackdirection  == "Forward":
-                    directionrected=mpatches.Arrow(left,bottom+0.25,width, 0,
-                                            fill=True,
-                                            color="#8B7500"#,
-                                           ,width=0.5,lw = 0.5)
-                elif trackdirection  == "Reverse":
-                    directionrected=mpatches.Arrow(left+width,bottom+0.25,-width, 0,
-                                            fill=True,
-                                            color="#8B658B"#,
-                                           ,width=0.5,lw = 0.5)                    
+                #if trackdirection  == "Forward":
+                 #   directionrected=mpatches.Arrow(left,bottom+0.25,width, 0,
+                                       #     fill=True,
+                   #                         color="#8B7500"#,
+                      #                     ,width=0.5,lw = 0.5)
+                if trackdirection  == "Reverse":
+                    directionrected=mpatches.Rectangle((left,bottom),width,height, 
+                                    fill=True,
+                                    color="#000099",
+                                   linewidth=2)                    
                 tempdirectionlist.append( directionrected) 
                 
             dictracks[pathwaytrackname] = [pathwaybottom+0.5,pathwaystart,pathwaystartinmain,pathwaylength]    
@@ -134,7 +134,7 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
 
                     
             linepointx1 = [pathwaystartinmainorg ,pathwaystartinmain] #for the insert posistion
-            linepointy1 = [mainbottomtop  ,pathwaybottomtop-0.25]              
+            linepointy1 = [mainbottomtop  ,pathwaybottomtop-0.5]              
             linepointx.append(linepointx1)
             linepointy.append(linepointy1)
             left, bottom, width, height = (pathwaystartinmainorg, mainbottomtop-0.55,insertbarlength, 0.7)
@@ -146,7 +146,7 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
                 
                
             linepointx2 = [pathwayendinmainorg,pathwaystartinmain+pathwaylength] 
-            linepointy2 = [mainbottomtop  ,pathwaybottomtop-0.25]         
+            linepointy2 = [mainbottomtop  ,pathwaybottomtop-0.5]         
             linepointx.append(linepointx2)
             linepointy.append(linepointy2)
             left, bottom, width, height = (pathwayendinmainorg, 1.95,insertbarlength, 0.7)
@@ -191,7 +191,7 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
 
 
                 linepointx1 = [lastbranchstartinmainorg ,pathwaystartinmain] #for the insert posistion
-                linepointy1 = [lastbranchstartbottomtop  ,pathwaybottomtop-0.25]    
+                linepointy1 = [lastbranchstartbottomtop  ,pathwaybottomtop-0.5]    
                 linepointx.append(linepointx1)
                 linepointy.append(linepointy1)
 
@@ -204,11 +204,11 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
 
 
                 linepointx2 = [lastbranchendinmainorg,pathwaystartinmain+pathwaylength] 
-                linepointy2 = [lastbranchendbottomtop  ,pathwaybottomtop-0.25]         
+                linepointy2 = [lastbranchendbottomtop  ,pathwaybottomtop-0.5]         
                 linepointx.append(linepointx2)
                 linepointy.append(linepointy2)
 
-                left, bottom, width, height = (lastbranchendinmainorg, lastbranchstartbottomtop-0.55,insertbarlength, 0.7)
+                left, bottom, width, height = (lastbranchendinmainorg, lastbranchendbottomtop-0.55,insertbarlength, 0.7)
                 pathwayrected=mpatches.Rectangle((left,bottom),width,height, 
                                             fill=True,
                                             color="red",
@@ -217,4 +217,4 @@ def readpathwaybed(pathwaybedfilename,drawtrackcolor,middlethetrackandread,track
 
     print(len(tempdirectionlist))   
     pathwaytracks = pathwaytracks+tempdirectionlist
-    return sizetrackx, sizetracky, maintrack, pathwaytracks, linepointx, linepointy, dictracks,dicpathwaybottom,mainlength
+    return sizetrackx, sizetracky, maintrack, pathwaytracks, linepointx, linepointy, dictracks,dicpathwaybottom,mainlength,maintrackname

@@ -20,12 +20,15 @@ def readcoveragebed(coveragebedfilename,dictracks,coveragecolor):
         readforpathpointlength = readstart - dictracks[chrom][1] 
         readfordrawstart= dictracks[chrom][2] + readforpathpointlength 
         readlength = readend - readstart
-           
+        
+          
         left, bottom, width, height = (readfordrawstart, readbottomtemp,readlength,  coveragescores) 
         coveragerected=mpatches.Rectangle((left,bottom),width,height, 
                                     fill=True,
                                     color=coveragecolor,
                                    linewidth=2) 
-        coveragerectedlist.append(coveragerected)
+        if coveragescores > 0.0001:
+
+            coveragerectedlist.append(coveragerected)
     return coveragerectedlist
 

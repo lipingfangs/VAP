@@ -1,31 +1,25 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-import pysam
-import os
-
-def readonlylargedeletion(dicseqtrack,bamdir,dicreaddetailinf,writethereadnameornot,mode):
+def readonlylargedeletion(dicseqtrack,bamdir,dicreaddetailinf,writethereadnameornot):
+    import pysam
+    import os
     print(dicseqtrack,"dicseqtrack")
     varitionblocklist = []
-    dicreaddetailinf_keys = set(dicreaddetailinf.keys())
-    print("dicreaddetailinf_keys",dicreaddetailinf_keys)
-    for i in os.listdir(bamdir):
-        if i.find("bam") !=-1 and i.find("bai") ==-1 and i.find("regions") ==-1 and i.find("mosdepth") ==-1  :
-            if i.find("main") != -1 or  i.find(":") != -1 :
-                print(i)
+    for i in list(os.listdir(bamdir)):
+        if i.find("bam") !=-1:
+            if i.find("bai") ==-1 and i.find("regions") ==-1 and i.find("mosdepth") ==-1 :
                 bf = pysam.AlignmentFile(bamdir+"/"+i,"r")
                 for j in bf :
                     readname = j.qname
-                    if mode == "long":
-                        readname = "/".join(readname.split("/")[:-1])
                     if i.find("main") !=-1:
-                        readchr = j.reference_name 
+                        readchr = j.reference_name
                     else:
                         chrpoiadd = i.split(":")[1].split(".")[0].split("-")
                         readchr = j.reference_name +"_" +chrpoiadd[0]+"_"+chrpoiadd[1]
-
+                
                     readmarker = j.cigartuples
                     readseq = j.seq
-                    if j.isize >= 0:
+                    if j.isize > 0:
                         readdirection = "+"
                     else:
                         readdirection = "-"
@@ -35,37 +29,37 @@ def readonlylargedeletion(dicseqtrack,bamdir,dicreaddetailinf,writethereadnameor
                     maplength =0
                     scanedlength = 0
                     refjumpstep = 0
-                   # print(readname)
-
-                    if  readname in dicreaddetailinf_keys and readchr in dicseqtrack:
-
-                    #if   readchr in dicseqtrack:
+                    if  readname in list(dicreaddetailinf.keys()) and readchr in list(dicseqtrack.keys()) :
                         readstartpoint = j.pos+1
+                        #print(readseq,readstartpoint)
+                        #dicseqone = {}
                         mapstart  = 0
-
+                       # blankrefjump = 0  
                         for k in readmarker:
-                            #print(k)
+                             # refjumpstep 
                             if k[0] == 0:
+                                
                                 orgmapstart = mapstart-1
                                 mapstart =  mapstart+blankmappingjump
                                 maplength = k[1]
                                 mapend = mapstart+maplength
-
-                                #print("mapstart mapend",readseq,mapstart,mapend)
-                                try:
-                                    mapseq = readseq[mapstart:mapend]
-                                except:
-                                    break
+                               # print(mapstart,mapend)
+                                mapseq = readseq[mapstart:mapend] 
                                 if i.find("main") == -1:
                                     refstart = readstartpoint+orgmapstart-dicseqtrack[readchr][0] +  blankrefjump 
                                 else:
                                     refstart = readstartpoint+orgmapstart+1-dicseqtrack[readchr][0] +  blankrefjump 
                                 refend =  refstart+maplength
                                 mapstart = mapend
+                                #print('saasasa',refstart,refend)
+                                #if i.find("main") != -1:
+                                    #print(readname,mapseq, refseq,blankmappingjump,blankrefjump,"branch",sep = ",")
+                                #blankmappingjump = 0
+                               # blankrefjump = 0
                                 scanedlength += maplength
-                                
+                            #insert and deletion
                             if k[0] == 4 or k[0] == 1:
-
+                               # print(k)
                                 blankmappingjump += k[1]
                                 if k[0] == 1:
                                     refjumpstep =  k[1]
@@ -98,3 +92,4 @@ def readonlylargedeletion(dicseqtrack,bamdir,dicreaddetailinf,writethereadnameor
                                 scanedlength +=  refjumpstep 
                                 
     return varitionblocklist
+           

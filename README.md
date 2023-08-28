@@ -50,13 +50,13 @@ All pages are packaged in the webserver index. You can directly copy the page to
 **Generated the info.file contained graph tracks information*
 
 ```
-For the graph generated from minigraph or Cactus-minigraph
+#For the graph generated from minigraph or Cactus-minigraph
 gfatools gfa2fa -s <graph>.gfa > <graph>.fa
 python VAP/runVAP.py --mode index --rfa <graph>.fa > <info.file>  
 #The bug for complex region  was fixed in the lastest verion. no error should be reported in this stages.
 #error tend to be reported in this step which will not affect the user in next step if the info file was generated; That was attriubute to the compliacted branch. It will be fixed in next version.
 
-For the graph with individual nodes information, which means the SN/SO/SR information are lost in graph which contain the information in P line from each indiviual in graph construction
+#For the graph with individual nodes information, which means the SN/SO/SR information are lost in graph which contain the information in P line from each indiviual in graph construction
 python VAP/runVAP.py --mode convey --gfa <graph>.gfa --ref <selected reference> > <graph>.r.fa 
 python VAP/runVAP.py --mode index --rfa <graph>.r.fa > <info.file>  
 ```
@@ -66,10 +66,10 @@ python VAP/runVAP.py --mode index --rfa <graph>.r.fa > <info.file>
 The bam file can be generated from vg giraffe or other similar software, which should be sorted with samtools sort and build the index.
 
 ```
-From .bam file
+#From .bam file
 graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam file> <out dir>
 
-From .gam file (Longer time may used for the running of Vg)(The file of <index.xg> was generated from vg autoindex with -w map paramter)
+#From .gam file (Longer time may used for the running of Vg)(The file of <index.xg> was generated from vg autoindex with -w map paramter)
 graphsamtools   <info.file> <chromosome> <start posistion> <end posistion>  gam  <gam file> <index.xg> <out dir>  <out dir>
 ```
 

@@ -1,10 +1,10 @@
 # VAP (Visualization of Read Alignments with Pangenomes)
-A programme for visualization of reads alignment and path navigation in graphical pan-genome, The mapping stage of read to graph can be processed by vg giraffe/map or other similar softwares. The .bam file generated from the alignment was the file of input in VAG.
+A programme for visualization of reads alignment and path navigation in graphical pan-genome, The mapping stage of read to graph can be processed by vg giraffe/map or other similar softwares. The .bam file generated from the alignment was the file of input in VAP.
 ![main](https://user-images.githubusercontent.com/46209789/213981873-bc18ff74-93ff-4001-8ecd-3dfc1ed5992c.jpg)
 
-##Version in Window Os was online, which can be downloaded in https://ricegenomichjx.xiaomy.net/VAG/VAGallgui.exe.
+##Version in Window Os was online, which can be downloaded in https://ricegenomichjx.xiaomy.net/VAP/VAPallgui.exe.
 
-##The detailed description and usages can be found in documents in https://lipingfangs.github.io/VAGreadme.html. 
+##The detailed description and usages can be found in documents in https://lipingfangs.github.io/VAPreadme.html. 
 
 
 ***Install***
@@ -13,14 +13,14 @@ A programme for visualization of reads alignment and path navigation in graphica
 
 Pysam, matplotlib, mpld3
 
-Samtools, Bedtools, mosdepth(to display reads coverage), seqkit (to display snp)
+Vg, Samtools, Bedtools, mosdepth(to display reads coverage), seqkit (to display snp)
 
 php environment (for web), apache (for web)
 
 **Command tools*
 
 ```
-cd VAG
+cd VAP
 chmod 700 graphsamtools
 python setup.py install
 cd script 
@@ -29,17 +29,22 @@ chmod 700 *py
 ```
 
 **web-server*
-All pages are packaged in the webserver index. You can directly copy the page to the login index of the server to complete the deployment and make it accessible. If you have any difficulty, Please feel free to contact the author (lpf_bio@foxmail.com); The example platform was accessible with https://ricegenomichjx.xiaomy.net/VAG/sequenceextraction.php
+All pages are packaged in the webserver index. You can directly copy the page to the login index of the server to complete the deployment and make it accessible. If you have any difficulty, Please feel free to contact the author (lpf_bio@foxmail.com); The example platform was accessible with https://ricegenomichjx.xiaomy.net/VAP/sequenceextraction.php
 
 ***Usage***
 
 **Generated the info.file contained graph tracks information*
 
 ```
-gfatools gfa2fa -s <graph>.GFA > <graph>.fa
-python script/getinf.py <graph>.fa > <info.file>  
+For the graph generated from minigraph or Cactus-minigraph
+gfatools gfa2fa -s <graph>.gfa > <graph>.fa
+python VAP/runVAP.py --mode index --rfa <graph>.fa > <info.file>  
 #The bug for complex region  was fixed in the lastest verion. no error should be reported in this stages.
 #error tend to be reported in this step which will not affect the user in next step if the info file was generated; That was attriubute to the compliacted branch. It will be fixed in next version.
+
+For the graph with individual nodes information, which means the SN/SO/SR information are lost in graph which contain the information in P line from each indiviual in graph construction
+python VAP/runVAP.py --mode convey --gfa <graph>.gfa --ref <selected reference> > <graph>.r.fa 
+python VAP/runVAP.py --mode index --rfa <graph>.r.fa > <info.file>  
 ```
 
 **Extraction of related main and branch paths based on a certain reference genome interval*
@@ -47,7 +52,11 @@ python script/getinf.py <graph>.fa > <info.file>
 The bam file can be generated from vg giraffe or other similar software, which should be sorted with samtools sort and build the index.
 
 ```
+From .bam file
 graphsamtools <info.file> <chromosome> <start posistion> <end posistion> <bam file> <out dir>
+
+From .gam file (Longer time may used for the running of Vg)(The file of <index.xg> was generated from vg autoindex with -w map paramter)
+graphsamtools   <info.file> <chromosome> <start posistion> <end posistion>  gam  <gam file> <index.xg> <out dir>  <out dir>
 ```
 
 In snp mode within 2000bp:
@@ -82,7 +91,7 @@ Upload the <out dir>.tar.gz.
 
 ```
 
-usage:python runVAG.py -h (for more help) 
+usage:python runVAP.py -h (for more help) 
 
 VSAG is a software for the visualization of short read alignment of graphical pan-genome
 
@@ -143,37 +152,48 @@ optional arguments:
 
 **Only display the graph*
 ```
-python  runVAG.py --inindex   <index generated from graphsamtools> --drawtype onlytrack
+python  runVAP.py --inindex   <dir generated from graphsamtools> --drawtype onlytrack
 ```
 **Draw the alignment of read*
 
 ```
-python runVAG.py  --inindex <index generated from graphsamtools> 
+python runVAP.py  --inindex <dir generated from graphsamtools> 
 ```
 
 **Draw the coverage of reads alignment*
 
 ```
-python runVAG.py  --inindex <index generated from graphsamtools>  --drawtype coverage
+python runVAP.py  --inindex <dir generated from graphsamtools>  --drawtype coverage
 ```
+
+  **Draw the  alignment with split read information and predict the reliable segements(nodes)*
+
+```
+The dir <dir generated from graphsamtools> should be generated from gam mode in graphsamtools
+python VAP/runVAP.py  --inindex <dir generated from graphsamtools> --mode gam --readspilt 1  --anntrack 1
+
+```
+
+ **Draw the  alignment with read pair information and predict the reliable segements(nodes)*
+
+```
+
+python runVAP.py  --inindex <dir generated from graphsamtools>  --pairend 1 --anntrack 1
+
+```
+
  
- **Draw the  alignment with Mate pair information and predict the reliable segements(nodes)*
 
-```
-
-python runVAG.py  --inindex <index generated from graphsamtools>  --pairend 1 --anntrack 1
-
-```
  **Draw the distriubution of gene with .gff file (extraction based interval was realized)*
 
 ```
-python runVAG.py  --inindex <index generated from graphsamtools> --gaingene 1 --gff <annotationfile.gff>
+python runVAP.py  --inindex <dir generated from graphsamtools> --gaingene 1 --gff <annotationfile.gff>
 ```
  
 **Draw the distriubution of coverage between population*
 
 ```
-python runVAG.py  --inindex <index generated from graphsamtools> --drawtype populationfreq
+python runVAP.py  --inindex <dir generated from graphsamtools> --drawtype populationfreq
 ```
  
  **Draw the distriubution of coverage between population*
@@ -183,7 +203,7 @@ python runVAG.py  --inindex <index generated from graphsamtools> --drawtype popu
 
 IF you have any problem or comment in usage, please feel free to contact the aurthor (fangping.li@scau.edu.cn) who will reply on time!
 
-IF the software participate in your researech , please cite the paper: Visualization and review of reads alignment on the graphical pan-genome with VAG
+IF the software participate in your researech , please cite the paper: Visualization and review of reads alignment on the graphical pan-genome with VAP
 Fangping Li, Haifei Hu, Zitong Xiao, Jingming Wang, Jieying Liu, Deshu Zhao, Yu Fu, Yijun Wang, Xue Yuan, Suhong Bu, Xiaofan Zhou, Junliang Zhao, Shaokui Wang
 bioRxiv 2023.01.20.524849; doi: https://doi.org/10.1101/2023.01.20.524849, Thank you so much
 

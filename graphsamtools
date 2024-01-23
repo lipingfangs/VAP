@@ -45,7 +45,10 @@ cat $goininf | awk -v OFS="\t" -v gochr=${gochr} -v gostart=${gostart} -v goend=
 
 if [  $goinbam == "onlytrack" ];
 then
+   
    goout=$6
+   rm -rf $goout
+   mkdir $goout
     mv graphsamtoolstempdir/* $goout
     exit
 
